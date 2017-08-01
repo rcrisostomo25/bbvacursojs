@@ -78,14 +78,12 @@ zoo.areas.push(area4);
 
 var recinto1 =  {
     nombre: "Serpientes",
-    aforoMaximoZona: 50,
-    animales: []
+    aforoMaximoZona: 50
 }
 
 var recinto2 =  {
     nombre: "Lagartos",
-    aforoMaximoZona: 50,
-    animales: []
+    aforoMaximoZona: 50
 }
 
 var recinto3 =  {
@@ -102,37 +100,7 @@ area1.recintos.push(recinto1);
 area1.recintos.push(recinto2);
 
 area2.recintos.push(recinto3);
-area2.recintos.push(recinto4); 
-
-
-var animal1 = {
-    nombre: "Aguila",
-    salud: 50
-}
-
-var animal2 = {
-    nombre: "Cocodrilo",
-    salud: 50
-}
-
-var animal3 = {
-    nombre: "Cocodrilo 2",
-    salud: 50
-}
-
-recinto1.animales.push(animal1);
-recinto2.animales.push(animal2);
-recinto2.animales.push(animal3);
+area2.recintos.push(recinto4);
 // COMPLETAR
-
-function agregarAnimales(nombre, salud) {
-    var animal = {
-        nombre: nombre,
-        salud: salud
-    }
-    return animal;
-}
-recinto1.animales.push(agregarAnimales("Aguila 333",20));
-recinto1.animales.push(agregarAnimales("Aguila 444",30));
 
 console.log(zoo);
