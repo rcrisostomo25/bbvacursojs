@@ -1,3 +1,43 @@
+/*
+
+Haciendo uso del zoo que definimos en el ejercicio anterior,
+vamos a añadirle funcionalidad:
+
+1) Haz una función que añada un visitante nuevo:
+	Si el zoo está lleno no podrá entrar.
+	Para entrar deberá pagar la entrada que dependerá de:
+		Niños <14 años: gratis
+		Personas mayores >65 gratis
+		Resto: 5$
+		Estudiantes: 3$
+	Este importe deberá ser restado del dinero del visitante y añadido a la caja del zoo
+
+	El visitante irá a un área y una recinto aleatoria,
+	si esta está llena, deberá buscar otro lugar
+
+2) Crea una función que se llame ejecutarCiclo() que simule el paso de 1 hora en el zoo, deberá:
+	- Añadir visitantes al parque y también los retire del parque
+	- Deberá quedar reflejado que ha pasado un ciclo en el importe de las personas (tendrán menos dinero) y en la caja del parque (habrá ganado dinero)
+
+	(El ciclo simula ser una hora del parque, pero lo ejecutamos cada 3seg)
+
+3) Crea una funcionalidad que simule el paso de un ciclo en un animal:
+	- Su salud se verá afectada disminuyendo o aumentando 10 (de forma aleatoria).
+	- Si la salud del animal descience por debajo de 50, este debéra ir a la enfermería.
+	- También el animal tendrá más hambre cada hora que pase (+10) cuando llegue a 100 deberá ser alimentado y pasará a tener hambre 0.
+
+4) Asocia la funcionalidad anterior a la función de ejecutarCiclo() de manera que los animales vayan variando su salud y su hambre.
+De vez en cuando algunos animales deberán ir a la enfermería (salud menor de 50) donde recuperarán 10 de salud hasta llegar a 100. 
+Al llegar a 100 deberán volver a su recinto.
+
+BONUS:
+
+Haz que en cada ciclo una persona tenga una probabilidad del 15% de comprar un prodcuto de la tienda.
+Añade una propiedad tienda en ZOO que tenga un array de artículos de regalo (añade 20 artículos).
+Un artículo de regalo tendrá un nombre y un precio.
+Las personas que deseen comprar eligirán un artículo aleatorio y se lo llevarán (ya no estará en la tienda)
+
+*/
 // Funciones auxiliares
 function generarNumeroAleatorioEntre(minimo, maximo){
     var anchoFranjaNumerica = (maximo-minimo) + 1;
@@ -380,6 +420,7 @@ function ejecutarCiclo() {
 ejecutarCiclo();
 
 console.log(zoo);
+
 
 
 

@@ -1,106 +1,145 @@
-/*
+// Funciones auxiliares
+function generarNumeroAleatorioEntre(minimo, maximo){
+    var anchoFranjaNumerica = (maximo-minimo) + 1;
+    var numero = Math.floor((Math.random() * anchoFranjaNumerica) + minimo);
 
-Realiza la modelización de un Zoológico
+    return numero;
+}
 
-El zoológico deberá tener un nombre, una ubicación, un aforo máximo, un horario... ¡y todo lo que se te pueda ocurrir!
+function generarNombreAleatorio(){
+    var nombresNegados = ["Carlos", "Daniel", "Fabian", "Juan Carlos", "Bryan", "Saul", "Christian", "Marcel", "Ronal", "David", "Fran"];
+    var indice = generarNumeroAleatorioEntre(0, nombresNegados.length-1);
 
-El zoológico deberá tener varias áreas:
+    return nombresNegados[indice];
+}
 
-- Reptiles
-- Aves
-- Mamíferos
-- Peces
+function dameRecintoAleatorio(){
+    var recinto = null;
+    var recintosEnMiZoo = [];
 
-con distintos recintos, por ejemplo:
+    for(var indiceArea=0; indiceArea<zoo.areas.length; indiceArea++){
+        var area = zoo.areas[indiceArea];
+        for(var indiceRecintos=0; indiceRecintos<area.recintos.length; indiceRecintos++){
+            var recinto = area.recintos[indiceRecintos];
+            recintosEnMiZoo.push(recinto);
+        }
+    }
 
-- Reptiles
-    - Serpientes
-    - Lagartos
-- Aves
-    - Aves pequeñas
-    - Aves tropicales
+    var indiceAleatorio = generarNumeroAleatorioEntre(0, recintosEnMiZoo.length-1);
+    recinto = recintosEnMiZoo[indiceAleatorio];
 
-    ... etcétera
+    return recinto;
+}
 
-Cada recinto debe tener un nombre, una capacidad máxima de animales, aforo maximo de personas y un conjunto de animales.
+// Añade personas de forma aleatoria
+function insertarPersonasAleatoriamente(numeroPersonas){
+    for(var i=0; i<numeroPersonas; i++){
+        var persona = crearPersonaAleatoria();
+        var recintoAleatorio = dameRecintoAleatorio();
 
-Modeliza el zoológico lo más completo que puedas.
+        if(recintoAleatorio.aforoMaximoPersonas>recintoAleatorio.personas.length){
+            recintoAleatorio.personas.push(persona);
+        }else{
+            console.error(persona.nombre + " no cabe en el recinto " + recintoAleatorio.nombre);
+        }
+    }
+}
 
-*/
+// Añado los recintos a las áreas
+function aniadirRecintoEnAreas(recinto, area) {
+    area.recintos.push(recintoTigres);
+    area.aforoMaximo = area.aforoMaximo + recinto.aforoMaximoPersonas;
+}
+
+// Añado las areas al zoo
+function aniadirAreaEnZoo(area, zoo) {
+    zoo.areas.push(area);
+    zoo.aforo = zoo.aforo + area.aforoMaximo;
+}
 
 var zoo = {
     nombre: "El último zoológico",
     ubicacion: {},
     areas: [],
-    aforo: 120
-    // COMPLETAR
+    aforo: 0,
 };
 
-zoo.ubicacion = {
-    direccion: "Calle de los animales 5",
-    ciudad: "París",
-    pais: "Francia",
-    // COMPLETAR
+var ubicacion = {
+    direccion: "Calle de los animalitos 123",
+    ciudad: "Ciudad de México",
+    pais: "México",
+    telefono: 999888777
 }
 
-var area1 = {
-    nombre: "Reptiles",
-    aforoMaximoZona: 30,
-    recintos: [], // son como jaulas
-    // COMPLETAR
+// Seteamos la ubicacion
+zoo.ubicacion = ubicacion;
+
+function crearArea(nombre, aforo){
+    var area = {
+        nombre: nombre,
+        aforoMaximo: aforo,
+        recintos: [],
+    };
+
+    return area;
 }
 
-var area2 = {
-    nombre: "Aves",
-    aforoMaximoZona: 40,
-    recintos: [], // son como jaulas
-    // COMPLETAR
+function crearRecinto(nombre, aforoMaximoPersonas, aforoMaximoAnimales, detalle){
+    return {
+        nombre: nombre,
+        animales: [],
+        personas: [],
+        aforoMaximoPersonas: aforoMaximoPersonas,
+        aforoMaximoAnimales: aforoMaximoAnimales,
+        detalle: detalle
+    };
 }
 
-var area3 = {
-    nombre: "Mamíferos",
-    aforoMaximoZona: 20,
-    recintos: [], // son como jaulas
-    // COMPLETAR
+function crearAnimal(nombre, especie, salud, hambre, pais){
+    return {
+        nombre: nombre,
+        especie: especie,
+        salud: salud,
+        hambre: hambre,
+        pais: pais
+    };
 }
 
-var area4 = {
-    nombre: "Peces",
-    aforoMaximoZona: 50,
-    recintos: [], // son como jaulas
-    // COMPLETAR
+function crearPersonaAleatoria(){
+    return {
+        nombre: generarNombreAleatorio(),
+        edad: generarNumeroAleatorioEntre(1, 90),
+        dinero: generarNumeroAleatorioEntre(0, 1000)
+    }
 }
 
-zoo.areas.push(area1);
-zoo.areas.push(area2);
-zoo.areas.push(area3);
-zoo.areas.push(area4);
+// Creo animales
+var tigreBlanco = crearAnimal("Tigre Blanco", "Felino", 100, 80, "Egipto");
+var tigreNormal = crearAnimal("Tigre", "Felino", 90, 60, "Africa");
+var avestruz = crearAnimal("Avestruz", "Avis Chilensis", 100, 100, "Chile");
+var flamenco = crearAnimal("Flamenco", "Phoenicopteridae", 5, 100, "Colombia");
 
-var recinto1 =  {
-    nombre: "Serpientes",
-    aforoMaximoZona: 50
-}
+// Creo recintos 
+var recintoTigres = crearRecinto("Jaula de tigres", 50, 30, "Jaula super reforzada con titanium");
+var recintoAves = crearRecinto("Jaula para aves no voladoras", 100, 80, "Algunas aves se pelean mucho");
 
-var recinto2 =  {
-    nombre: "Lagartos",
-    aforoMaximoZona: 50
-}
+// Creo areas
+var areaMamiferos = crearArea("Mamíferos", 0);
+var areaAves = crearArea("Aves", 0);
 
-var recinto3 =  {
-    nombre: "Aves pequeñas",
-    aforoMaximoZona: 50
-}
+// Añado los animales a los recintos
+recintoTigres.animales.push(tigreBlanco, tigreNormal);
+recintoAves.animales.push(avestruz, flamenco);
 
-var recinto4 =  {
-    nombre: "Aves tropicales",
-    aforoMaximoZona: 50
-}
+//Añado recintos al area
+aniadirRecintoEnAreas(recintoTigres, areaMamiferos);
+aniadirRecintoEnAreas(recintoAves, areaAves);
 
-area1.recintos.push(recinto1);
-area1.recintos.push(recinto2);
+//Añado las áreas al zoo
+aniadirAreaEnZoo(areaMamiferos, zoo);
+aniadirAreaEnZoo(areaAves, zoo);
 
-area2.recintos.push(recinto3);
-area2.recintos.push(recinto4);
-// COMPLETAR
+// Añado 100 personas
+insertarPersonasAleatoriamente(100);
 
 console.log(zoo);
