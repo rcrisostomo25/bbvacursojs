@@ -207,7 +207,7 @@ function Articulo(){
 //****************************************************
 
 Zoo.prototype.ejecutarCiclo = function() {
-    console.log("CANTIDAD DE EJECUCIONES..." + numeroEjecucionesIntervalos+ " CAJA: " +this._caja);
+    console.log("CANTIDAD DE EJECUCIONES..." + numeroEjecucionesIntervalos);
     for(var indiceArea=0; indiceArea<this._areas.length; indiceArea++){
         var area = this._areas[indiceArea];
         area.ejecutarCiclo();
@@ -251,7 +251,11 @@ Zoo.prototype.comprobarCierreZoo = function(cantidadEjecuciones) {
             var area = this._areas[indiceArea];
             for(var indiceRecintos=0; indiceRecintos<area._recintos.length; indiceRecintos++){
                 var recinto = area._recintos[indiceRecintos];
-                recinto._personas = [];
+                for(var indicePersonas=recinto._personas.length-1 ; indicePersonas>= 0; indicePersonas--){
+                    console.log("quitando personas");
+                    var persona = recinto._personas[indicePersonas];
+                    recinto._personas.splice(indicePersonas,1);
+                }
             }
         }
     }   

@@ -4,27 +4,27 @@ Haciendo uso del zoo que definimos en el ejercicio anterior,
 vamos a añadirle funcionalidad:
 
 1) Haz una función que añada un visitante nuevo:
-	Si el zoo está lleno no podrá entrar.
-	Para entrar deberá pagar la entrada que dependerá de:
-		Niños <14 años: gratis
-		Personas mayores >65 gratis
-		Resto: 5$
-		Estudiantes: 3$
-	Este importe deberá ser restado del dinero del visitante y añadido a la caja del zoo
+    Si el zoo está lleno no podrá entrar.
+    Para entrar deberá pagar la entrada que dependerá de:
+        Niños <14 años: gratis
+        Personas mayores >65 gratis
+        Resto: 5$
+        Estudiantes: 3$
+    Este importe deberá ser restado del dinero del visitante y añadido a la caja del zoo
 
-	El visitante irá a un área y una recinto aleatoria,
-	si esta está llena, deberá buscar otro lugar
+    El visitante irá a un área y una recinto aleatoria,
+    si esta está llena, deberá buscar otro lugar
 
 2) Crea una función que se llame ejecutarCiclo() que simule el paso de 1 hora en el zoo, deberá:
-	- Añadir visitantes al parque y también los retire del parque
-	- Deberá quedar reflejado que ha pasado un ciclo en el importe de las personas (tendrán menos dinero) y en la caja del parque (habrá ganado dinero)
+    - Añadir visitantes al parque y también los retire del parque
+    - Deberá quedar reflejado que ha pasado un ciclo en el importe de las personas (tendrán menos dinero) y en la caja del parque (habrá ganado dinero)
 
-	(El ciclo simula ser una hora del parque, pero lo ejecutamos cada 3seg)
+    (El ciclo simula ser una hora del parque, pero lo ejecutamos cada 3seg)
 
 3) Crea una funcionalidad que simule el paso de un ciclo en un animal:
-	- Su salud se verá afectada disminuyendo o aumentando 10 (de forma aleatoria).
-	- Si la salud del animal descience por debajo de 50, este debéra ir a la enfermería.
-	- También el animal tendrá más hambre cada hora que pase (+10) cuando llegue a 100 deberá ser alimentado y pasará a tener hambre 0.
+    - Su salud se verá afectada disminuyendo o aumentando 10 (de forma aleatoria).
+    - Si la salud del animal descience por debajo de 50, este debéra ir a la enfermería.
+    - También el animal tendrá más hambre cada hora que pase (+10) cuando llegue a 100 deberá ser alimentado y pasará a tener hambre 0.
 
 4) Asocia la funcionalidad anterior a la función de ejecutarCiclo() de manera que los animales vayan variando su salud y su hambre.
 De vez en cuando algunos animales deberán ir a la enfermería (salud menor de 50) donde recuperarán 10 de salud hasta llegar a 100. 
@@ -52,13 +52,13 @@ El zoo se quedará con su cartera.
 Deberán mostrarse:
 
 - las áreas:
-	- los recintos de ese área:
-		- los animales de ese recinto
-		- el número de visitantes de ese recinto
+    - los recintos de ese área:
+        - los animales de ese recinto
+        - el número de visitantes de ese recinto
 - la enfermería:
-	- los animales dentro de la enfermería
+    - los animales dentro de la enfermería
 - la tienda
-	- el número de productos de la tienda
+    - el número de productos de la tienda
 - la caja del zoo
 
 6) Si el hambre del animal supera 300, se comerá otro animal de su recinto.
@@ -244,49 +244,7 @@ function ejecutarCicloAnimal() {
                 }  
 
                 if(!estaContenidoEnEnfermeria(objetoEnfermeriaBuscar)) {
-                    animal.hambre += 10;
-                    if(animal.hambre >= 100) {
-                        if(zoo.caja >= 1000) {
-                            //Si el ZOO tiene dinero alimentará al animal
-                            animal.hambre = 0;
-                            zoo.caja -= 1000;
-
-                        } else if(animal.hambre >= 150 && animal.hambre < 300 ) {
-                            //Se comera a un visitante
-                            var cantidadVisitantesRecinto = recinto.personas.length;
-                            if(cantidadVisitantesRecinto > 0) {
-                                var dineroPersona = recinto.personas[0].dinero;
-                                zoo.caja += dineroPersona;
-                                console.log("--- EL ANIMAL " + animal.nombre + " se comio a " + recinto.personas[0].nombre);
-                                recinto.personas.splice(0,1);
-                                animal.hambre = 0;
-                                
-                            }
-                        } else if(animal.hambre > 300){
-                            //Si tiene hambre mayor a 300 se come a otro animal
-                            for(var indiceAnimalesOther=0; indiceAnimalesOther<recinto.animales.length; indiceAnimalesOther++){
-                                if(indiceAnimalesOther != indiceAnimales) {
-                                    console.log("--- EL ANIMAL " + animal.nombre + " se comio a " + recinto.animales[indiceAnimalesOther].nombre);
-                                    recinto.animales.splice(indiceAnimalesOther,1);
-                                    animal.hambre = 0;
-                                    break;
-                                }
-                            }
-                        }                        
-                    }
-
-                    animal.salud += (Math.random() < 0.5 ? 10 : -10);
-                    if(animal.salud < 50) {
-                        var objetoEnfermeria = {
-                            animal: animal,
-                            recinto: recinto        
-                        }  
-                        recinto.animales.splice(indiceAnimales,1);
-                        zoo.enfermeria.push(objetoEnfermeria);
-
-                    } else if(animal.salud >= 100){
-                        animal.salud = 100;
-                    } 
+                    animal.ejecutarCiclo(zoo,recinto);
                 }
             }
         }
@@ -299,23 +257,19 @@ function ejecutarCicloEnfermeria() {
         var objetoEnfermeria = zoo.enfermeria[indiceEnfermeria];
         objetoEnfermeria.animal.salud += 10;
         if(objetoEnfermeria.animal.salud >= 100) {
-            arrayIndicesEliminar.push(indiceEnfermeria);
-        }    
-    }
-
-    for(var indice=0; indice<arrayIndicesEliminar.length; indice++ ) {
-        var animal = zoo.enfermeria[indice].animal;
-        var recintoBuscar = zoo.enfermeria[indice].recinto;
-        for(var indiceArea=0; indiceArea<zoo.areas.length; indiceArea++){
-            var area = zoo.areas[indiceArea];
-            for(var indiceRecintos=0; indiceRecintos<area.recintos.length; indiceRecintos++){
-                var recinto = area.recintos[indiceRecintos];
-                if(recinto == recintoBuscar) {
-                    recinto.animales.push(animal);
-                    zoo.enfermeria.splice(indice,1);        
+            var animal = objetoEnfermeria.animal;
+            var recintoBuscar = objetoEnfermeria.recinto;
+            for(var indiceArea=0; indiceArea<zoo.areas.length; indiceArea++){
+                var area = zoo.areas[indiceArea];
+                for(var indiceRecintos=0; indiceRecintos<area.recintos.length; indiceRecintos++){
+                    var recinto = area.recintos[indiceRecintos];
+                    if(recinto == recintoBuscar) {
+                        recinto.animales.push(animal);
+                        zoo.enfermeria.splice(indiceEnfermeria,1);        
+                    }
                 }
             }
-        }
+        }    
     }
 }   
 
@@ -324,7 +278,7 @@ function estaContenidoEnEnfermeria(objetoEnfermeria) {
         var enfermeria = zoo.enfermeria[i];
         if(objetoEnfermeria.animal == enfermeria.animal && objetoEnfermeria.recinto == enfermeria.recinto) {
             return true;
-        }    
+        }  
     }        
     return false;
 }
@@ -461,7 +415,64 @@ function crearAnimal(nombre, especie, salud, hambre, pais){
         especie: especie,
         salud: salud,
         hambre: hambre,
-        pais: pais
+        pais: pais,
+        ganarPerderSaludAleatorio: function (enfermeria, recinto) {
+            var aumentoDeSalud = (Math.random() < 0.5 ? 10 : -10);
+            this.salud += aumentoDeSalud;
+            if(this.salud > 100) {
+                this.salud = 100;
+            }
+            if(this.salud < 0) {
+                this.salud = 0;
+            }   
+            if(this.salud < 50) {
+                this.salud = 0;
+                var objetoEnfermeria = {
+                    animal: this,
+                    recinto: recinto
+                }
+                enfermeria.push(objetoEnfermeria);
+                var indiceEnRecinto = recinto.animales.indexOf(this);
+                recinto.animales.splice(indiceEnRecinto,1);
+            }
+        },
+        aumentarHambre: function (recinto) {
+            this.hambre += 10;
+            if(this.hambre >= 100) {
+                if(zoo.caja >= 1000) {
+                    //Si el ZOO tiene dinero alimentará al animal
+                    this.hambre = 0;
+                    zoo.caja -= 1000;
+
+                } else if(this.hambre >= 150 && this.hambre < 300 ) {
+                    //Se comera a un visitante
+                    var cantidadVisitantesRecinto = recinto.personas.length;
+                    if(cantidadVisitantesRecinto > 0) {
+                        var dineroPersona = recinto.personas[0].dinero;
+                        zoo.caja += dineroPersona;
+                        console.log("--- EL ANIMAL " + this.nombre + " se comio a " + recinto.personas[0].nombre);
+                        recinto.personas.splice(0,1);
+                        this.hambre = 0;
+                        
+                    }
+                } else if(this.hambre > 300){
+                    //Si tiene hambre mayor a 300 se come a otro animal
+                    var indiceAnimales = recinto.animales.indexOf(this); 
+                    for(var indiceAnimalesOther=0; indiceAnimalesOther<recinto.animales.length; indiceAnimalesOther++){
+                        if(indiceAnimalesOther != indiceAnimales) {
+                            console.log("--- EL ANIMAL " + this.nombre + " se comio a " + recinto.animales[indiceAnimalesOther].nombre);
+                            recinto.animales.splice(indiceAnimalesOther,1);
+                            this.hambre = 0;
+                            break;
+                        }
+                    }
+                }                        
+            }
+        },
+        ejecutarCiclo: function (zoo, recinto) {
+            this.ganarPerderSaludAleatorio(zoo.enfermeria,recinto);
+            this.aumentarHambre(recinto);
+        } 
     };
 }
 

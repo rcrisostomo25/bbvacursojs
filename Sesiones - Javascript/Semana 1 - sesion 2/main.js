@@ -94,7 +94,7 @@ var persona = {
         precio: "99999$",
         modelo: "Mustang GT",
         motor: {
-            potencia: "500CV",
+            potencia: "500CV",x1
             cilindros: "6",
         }
     }
