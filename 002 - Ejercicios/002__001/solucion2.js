@@ -207,7 +207,7 @@ function Articulo(){
 //****************************************************
 
 Zoo.prototype.ejecutarCiclo = function() {
-    console.log("CANTIDAD DE EJECUCIONES..." + numeroEjecucionesIntervalos);
+    console.log("CANTIDAD DE EJECUCIONES..." + numeroEjecucionesIntervalos+ " CAJA: " +this._caja);
     for(var indiceArea=0; indiceArea<this._areas.length; indiceArea++){
         var area = this._areas[indiceArea];
         area.ejecutarCiclo();
@@ -231,7 +231,8 @@ Zoo.prototype.generarVisitante = function () {
                 persona._dinero = persona._dinero - 5;
             }
             //añadiendo dinero a caja
-            this._caja += (persona._estudiante) ? 3 : 5;      
+            var dinero = (persona._estudiante) ? 3 : 5;
+            this._caja = this._caja + dinero;      
         } 
         recintoAleatorio._personas.push(persona);
 
@@ -251,11 +252,7 @@ Zoo.prototype.comprobarCierreZoo = function(cantidadEjecuciones) {
             var area = this._areas[indiceArea];
             for(var indiceRecintos=0; indiceRecintos<area._recintos.length; indiceRecintos++){
                 var recinto = area._recintos[indiceRecintos];
-                for(var indicePersonas=recinto._personas.length-1 ; indicePersonas>= 0; indicePersonas--){
-                    console.log("quitando personas");
-                    var persona = recinto._personas[indicePersonas];
-                    recinto._personas.splice(indicePersonas,1);
-                }
+                recinto._personas = [];
             }
         }
     }   
@@ -344,7 +341,7 @@ Persona.prototype.comprarArticulo = function() {
 Animal.prototype.ejecutarCiclo = function(zoo, recinto){
     this.ganarPerderSaludAleatorioYMandarEnfermeria(zoo._enfermeria, recinto);
     this.aumentarHambre();
-    this.alimentarAnimal();
+    this.alimentarAnimal(zoo);
     this.comerVisitante(recinto);
     this.comerOtroAnimal(recinto);
 };
@@ -373,7 +370,7 @@ Animal.prototype.aumentarHambre = function(){
     this._hambre = this._hambre + 10;
 };
 
-Animal.prototype.alimentarAnimal = function(){
+Animal.prototype.alimentarAnimal = function(zoo){
     if(zoo._caja >= 1000) {
         //Si el ZOO tiene dinero alimentará al animal
         this._hambre = 0;
@@ -386,7 +383,7 @@ Animal.prototype.comerVisitante = function(recinto){
         //Se comera a un visitante
         var cantidadVisitantesRecinto = recinto._personas.length;
         if(cantidadVisitantesRecinto > 0) {
-            var dineroPersona = recinto._personas[0].dinero;
+            var dineroPersona = recinto._personas[0]._dinero;
             zoo._caja += dineroPersona;
             console.log("--- EL ANIMAL " + this._nombre + " se comio a " + recinto._personas[0]._nombre);
             recinto._personas.splice(0,1);
