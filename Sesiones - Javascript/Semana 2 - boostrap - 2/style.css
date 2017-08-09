@@ -1,0 +1,326 @@
+* {
+    box-sizing: border-box;
+}
+
+figure {
+    line-height: .7;
+    margin: 0;
+    position: relative;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+.flow-2x1 {
+    height: 374px;
+    width: 641px;
+}
+
+.flow-1 {
+    height: 374px;
+    width: 310px;
+    border-right-width: 1px !important;
+}
+
+.flow-1 .row {
+    padding: 0px 18px 0px 15px!important;
+    margin: 0 -5px!important
+}
+
+.site-header, .site-menu, .site-body, .site-footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 955px;
+}
+
+.site-header {
+    background-image: url(./bg_header.png);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    margin-bottom: 3px;
+    margin-top: 8px;
+}
+
+.site-header .site-logo {
+    height: 105px;
+    padding-top: 28px;
+    text-align: center;
+}
+
+.site-menu {
+    border-top: 1px solid #d5e1e1;
+    margin-bottom: 8px;
+}
+
+.site-menu .box-content {
+    text-align: center;
+}
+
+.site-menu .home-menu {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-menu .link {
+    font-size: 15px;
+    padding: 0 13px 0 5px;
+}
+
+.site-menu .link.first {
+    padding-left: 0!important;
+}
+
+.site-menu .link {
+    background-image: url(./dot.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    font: 16px "ChronicleDisplayBold";
+    padding: 0 23px 0 15px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.site-menu .link a {
+    color: #444;
+    display: block;
+    padding: 13px 0;
+}
+
+.site-body .flow-detail {
+    bottom: 0;
+    left: auto;
+    padding: 0 0 60px;
+    right: 70px;
+    top: auto;
+    width: 260px;
+}
+
+.site-body .flow-detail {
+    border: 0;
+    bottom: 0;
+    height: auto;
+    left: 0;
+    padding: 0 15px 40px;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.site-body .flow-title {
+    display: block;
+    display: -webkit-box;
+    max-height: 75.6px;
+    font-size: 21px;
+    line-height: 1.2;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #fff;
+}
+
+.flow-bottom-left .flow-detail {
+    right: auto!important;
+    left: 20px!important;
+}
+
+.site-body .flow-title {
+    display: block;
+    display: -webkit-box;
+    max-height: 75.6px;
+    font-size: 21px
+    line-height: 1.2;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.site-body .flow-bottom-left .flow-title a {
+    color: #fff;
+}
+
+.site-body .flow-author {
+    bottom: 0;
+    color: #979797;
+    font-size: 10px;
+    position: absolute;
+    text-transform: uppercase;
+}
+
+.site-body .flow-2x1, .site-body .flow-1 {
+    border-color: #d5e1e1;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    float: left;
+    padding: 5px;
+}
+
+.site-body .flow-author a {
+    color: #979797;
+}
+
+.mini-flow {
+    border-bottom: 1px solid #d5e1e1;
+    margin: -3px -15px!important;
+    padding: 0px 18px 0px 15px!important;
+    position: relative;
+    width: auto!important;
+}
+
+.mini-flow .flow-detail {
+    min-height: 97px !important;
+    padding-right: 127px;
+    position: relative;
+    bottom: 0px;
+    padding-bottom: 0px;
+ }
+
+ .mini-flow .flow-author {
+    bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 115px;
+}
+
+.mini-flow .flow-title {
+    display: block;
+    display: -webkit-box;
+    max-height: 76.16px;
+    font-size: 17px !important;
+    line-height: 1.12;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.mini-flow .flow-image {
+    height: 67px;
+    position: absolute;
+    right: 18px;
+    top: 15px;
+    width: 117px;
+    z-index: 1;
+}
+
+.mini-flow:first-child .flow-image {
+    top: 10px;
+}
+
+.site-footer {
+    color: #000;
+    font: 11px "Open Sans";
+}
+
+.site-footer .footer-cols {
+    background-color: #f7c600;
+    padding: 30px 20px 40px;
+}
+
+.site-footer .footer-cols .site-info {
+    width: 25%;
+}
+
+.site-footer .footer-cols .site-info {
+    padding-left: 0!important;
+}
+
+.site-footer .toggle-content {
+    width: 680px;
+}
+
+.site-footer .toggle-content {
+    display: table-cell;
+}
+
+.site-footer .footer-cols .ec-mails, .site-footer .footer-cols .ec-links, .site-footer .footer-cols .ec-gda {
+    width: 226px;
+}
+
+.site-footer .footer-cols .site-info, .site-footer .footer-cols .ec-mails, .site-footer .footer-cols .ec-links, .site-footer .footer-cols .ec-gda {
+    padding-left: 13px;
+    padding-right: 0;
+}
+
+.site-footer .footer-cols .ec-gda {
+    width: 226px;
+}
+
+.site-footer .gec-sites {
+    background-color: #ebebeb;
+    padding: 20px 20px 15px;
+    /* text-transform: uppercase; */
+}
+
+.site-footer .footer-cols .site-info .site-logo {
+    display: block;
+    margin-bottom: 10px;
+    width: 220px;
+}
+
+.site-footer a {
+    color: #000;
+}
+
+.site-footer .footer-cols .site-info .site-legal li {
+    margin-bottom: 3px;
+}
+
+.site-footer .toggle-content {
+    width: 680px;
+}
+
+.site-footer .footer-cols .ec-mails ul li {
+    font-size: 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-cols .ec-links ul li {
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-cols .ec-gda p {
+    background-image: url(../img/logo_gda.png);
+    background-repeat: no-repeat;
+    bottom: 0;
+    display: block;
+    font-size: 10px;
+    height: 45px;
+    left: 20px;
+    margin: 0;
+    padding: 10px 0 0 85px;
+    position: absolute;
+    width: 100%;
+}
+
+.site-footer .gec-sites {
+    background-color: #ebebeb;
+    padding: 20px 20px 15px;
+    text-transform: uppercase;
+}
+
+.site-footer .gec-sites .title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.site-footer .gec-sites ul {
+    display: inline;
+}
+
+.site-footer .gec-sites ul li {
+    display: inline-block;
+    line-height: 22px;
+    margin-right: 3px;
+}
