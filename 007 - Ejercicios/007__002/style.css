@@ -1,4 +1,12 @@
 .pista {
-	min-height: 500px; 
+	min-height: 400px; 
 	background-color: black;
+}
+
+table, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+table {
+    border-spacing: 15px;
 }
