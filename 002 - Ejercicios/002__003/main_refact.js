@@ -106,38 +106,57 @@ class GestionMensaje {
 class MainController {
 	constructor() {
 		this._pubSub = new PubSub();
+		this._mensajes = {};
+		this.cargarMensajes();
 	}
 
 	iniciarTelefonos() {
 		for(let indice=1; indice < 5; indice++) {
-			let telefono = new Telefono(indice, this._pubSub);
+			let telefono = new Telefono(indice, this._pubSub, this, this._mensajes);
 		}
-		this.suscribirTodos();
 	}
 
-	suscribirTodos() {
-		this._pubSub.sub("TODOS", (data) => this.recibirMensajeTodos(data));
+	cargarMensajes() {
+		let objetoMensaje = localStorage.getItem("mensajes");
+		if(objetoMensaje != null) {
+			let arrayObjetoMensaje = JSON.parse(objetoMensaje);
+			this._mensajes = arrayObjetoMensaje;
+		}
 	}
 
-	recibirMensajeTodos(data) {
-		let iphonePropio = data.origen;	
-		for(let indice=1; indice < 5; indice++) {
-			var iph = 'iphone' + indice;
-			if(iphonePropio != iph) {
-				GestionMensaje.pintarMensaje(iph, data.mensaje, false, iphonePropio);	
-			} else {
-				GestionMensaje.pintarMensaje(iphonePropio, data.mensaje, true, iph);
-			}
-		}
+	guardarMensajes(iphone, mensaje) {
+		if (!this._mensajes[iphone]) {
+            this._mensajes[iphone] = [];
+        }
+        this._mensajes[iphone].push(mensaje);
+
+        let objetoMensaje = JSON.stringify(this._mensajes);
+        localStorage.setItem("mensajes", objetoMensaje);
 	}
 }
 
 class Telefono {
-	constructor(id, pubSub) {
+	constructor(id, pubSub, mainController, mensajes) {
 		this._id = id;
 		this._pubSub = pubSub;
+		this._mainController = mainController;
+		this._mensajes = mensajes;
+
+		this.cargarMensajeIphone();
 		this.suscribirse();
 		this.eventoPublicar();
+	}
+
+	cargarMensajeIphone() {
+		for(let indice in this._mensajes) {
+			if(indice == ('iphone' + this._id)) {
+				let arrayMensajes = this._mensajes[indice];
+				arrayMensajes.forEach(function(elemento) {
+					let espropio = indice == elemento.origen ? true : false; 
+					GestionMensaje.pintarMensaje(indice, elemento.mensaje, espropio, elemento.origen);
+				});
+			} 
+		}
 	}
 
 	eventoPublicar() {
@@ -148,15 +167,25 @@ class Telefono {
 	enviarMensajeIphone(iphone) {
 		var mensaje = GestionMensaje.getMensaje(iphone);
 		this._pubSub.pub(mensaje.destinatario, mensaje);
+		if(mensaje.destinatario != 'TODOS') {
+			GestionMensaje.pintarMensaje(mensaje.origen, mensaje.mensaje, true, mensaje.destinatario);
+			this._mainController.guardarMensajes(mensaje.origen, mensaje);
+		}
 	}
 
 	suscribirse() {
-		this._pubSub.sub("iphone" + this._id, (data) => this.recibirMensaje(data));
+		this._pubSub.sub("iphone" + this._id, (data) => this.enviarMensaje(data));
+		this._pubSub.sub("TODOS", (data) => this.enviarMensajeTodos(data));
 	}
 
-	recibirMensaje(data) {
+	enviarMensaje(data) {
 		GestionMensaje.pintarMensaje(data.destinatario, data.mensaje, false, data.origen);
-		GestionMensaje.pintarMensaje(data.origen, data.mensaje, true, data.destinatario);
+		this._mainController.guardarMensajes(data.destinatario, data);
+	}
+
+	enviarMensajeTodos(data) {
+		let espropio = data.origen == ("iphone" + this._id) ? true : false;
+		GestionMensaje.pintarMensaje("iphone" + this._id, data.mensaje, espropio, data.origen);
 	}
 }
 
