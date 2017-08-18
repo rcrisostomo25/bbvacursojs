@@ -120,6 +120,14 @@ class Guerra {
 		this._ejercito2 = ejercito2;
 	}
 
+	iniciarGuerra() {
+		var guerra = this;
+		intervalID = setInterval(function(){
+			guerra.ejecutarCicloGuerra();
+			guerra.imprimirEstado();
+		},1000);
+	}
+
 	ejecutarCicloGuerra() {
 		var ejercito1 = null;
 		var ejercito2 = null;
@@ -177,10 +185,5 @@ ejercito2.crearEjercito();
 
 //INICIALIZANDO GUERRA
 var guerra = new Guerra(ejercito1, ejercito2);
+guerra.iniciarGuerra();
 var intervalID;
-
-//EJECUTANDO INTERVALOS HASTA QUE UNO DE LOS EJERCITOS PIERDA
-intervalID = setInterval(function(){
-	guerra.ejecutarCicloGuerra();
-	guerra.imprimirEstado();
-},1000);

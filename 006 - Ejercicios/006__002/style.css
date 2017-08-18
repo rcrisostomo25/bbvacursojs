@@ -1,0 +1,19 @@
+td button {
+	margin-right: 15px;
+}
+
+#refrescar {
+	margin-bottom: 15px;
+}
+
+.table-users tbody tr {
+    cursor: pointer;
+}
+
+.listado-users button {
+	margin-bottom: 15px;
+}
+
+.row {
+	margin-top: 15px;
+}
