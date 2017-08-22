@@ -4,11 +4,11 @@
   "description": "Proyecto fnal \u001b[D\u001b[D\u001b[D\u001b[D\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[C\u001b[C\u001b[inal Javascriot\u001b[D\u001b[B\u001bpt Advanced",
   "main": "index.js",
   "config": {
-    "port" : "8080"
+    "port": "8080"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	  "start": "node serve.js"
+    "start": "node serve.js"
   },
   "keywords": [
     "proyecto",
@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "font-awesome": "^4.7.0"
   }
 }

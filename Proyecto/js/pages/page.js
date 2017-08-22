@@ -12,8 +12,9 @@ class Page {
 }
 
 class Login extends Page {
-	constructor(container) {
+	constructor(container, userController) {
 		super("Iniciar Sesión","#login", container);
+		this._userController = userController;
 	}
 
 	pintarContenido() {
@@ -32,10 +33,16 @@ class Login extends Page {
 
 	generarEventoBotonesLogin() {
 		let btnLogin = this._container.querySelector("#btnLogin");
-		btnLogin.addEventListener("click",() => this._navigation.invocarNavegacion("#principal")); 
+		btnLogin.addEventListener("click",() => this.autenticacion()); 
 
 		let btnCrearCuenta = this._container.querySelector("#btnCrearCuenta");
 		btnCrearCuenta.addEventListener("click",() => this._navigation.invocarNavegacion("#crear-usuario")); 
+	}
+
+	autenticacion() {
+		let txtUsername = this._container.querySelector("#txtUsername").value;
+		let txtPassword = this._container.querySelector("#txtPassword").value;
+		this._userController.validarLogin(txtUsername, txtPassword);
 	}
 
 	generarEventoRecordar() {
@@ -61,8 +68,9 @@ class Login extends Page {
 }
 
 class CrearCuenta extends Page {
-	constructor(container) {
+	constructor(container, userController) {
 		super("Crear cuenta", "#crear-usuario", container);
+		this._userController = userController;
 	}
 
 	pintarContenido() {
@@ -80,8 +88,22 @@ class CrearCuenta extends Page {
 	}
 
 	generarEventoBotonesCrearCuenta() {
+		let btnCrearCuenta = this._container.querySelector("#btnCrearCuenta");
+		btnCrearCuenta.addEventListener("click",() => this.crearUsuario()); 
+
 		let btnCancelar = this._container.querySelector("#btnCancelar");
 		btnCancelar.addEventListener("click",() => this._navigation.invocarNavegacion("#login")); 
+	}
+
+	crearUsuario() {
+		let txtEmail = this._container.querySelector("#txtEmail").value;
+		let txtApellidos = this._container.querySelector("#txtApellidos").value;
+		let txtNombre = this._container.querySelector("#txtNombre").value;
+		let txtUsername = this._container.querySelector("#txtUsername").value;
+		let txtPassword = this._container.querySelector("#txtPassword").value;
+
+		let user = new User(txtEmail, txtApellidos, txtNombre, txtUsername, txtPassword);
+		this._userController.crearUsuario(user);
 	}
 }
 
@@ -126,6 +148,9 @@ class InnerPage extends Page {
 
         let menuPage3 = this._container.querySelector("#menuPage3");
         menuPage3.addEventListener("click", () => this._navigation.invocarNavegacion("#page-3"));
+
+        let logout = this._container.querySelector("#logout");
+        logout.addEventListener("click", () => this._navigation.invocarNavegacion("#login"));
 	}
 }
 

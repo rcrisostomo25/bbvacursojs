@@ -13,7 +13,7 @@ class GestorPageHtml {
                                     <form role="form">
                                         <fieldset>
                                             <div class="form-group">
-                                                <input id="txtUsuario" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                                <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text" autofocus>
                                             </div>
                                             <div class="form-group">
                                                 <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="">
@@ -45,19 +45,19 @@ class GestorPageHtml {
                                     <form role="form">
                                         <fieldset>
                                             <div class="form-group">
-                                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                                <input id="txtEmail" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" placeholder="Apellidos" name="apellidos" type="text" value="">
+                                                <input id="txtApellidos" class="form-control" placeholder="Apellidos" name="apellidos" type="text" value="">
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" placeholder="Nombre" name="nombre" type="text" value="">
+                                                <input id="txtNombre" class="form-control" placeholder="Nombre" name="nombre" type="text" value="">
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" placeholder="Username" name="username" type="text" value="">
+                                                <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text" value="">
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="">
                                             </div>
                                             <!-- Change this to a button or input when using this as a form -->
                                             <a id="btnCrearCuenta" href="#crear-cuenta" class="btn btn-lg btn-primary btn-block">Crear Cuenta</a>
@@ -82,10 +82,11 @@ class GestorPageHtml {
         let siteMenu = `<nav class="site-menu">
                             <div class="box-content clearfix">
                                 <ul class="home-menu">
-                                    <li class="link"><a id="menuHome" href="#home">Home</a></li>
-                                    <li class="link"><a id="menuPage1" href="#page-1">Page 1</a></li>
-                                    <li class="link"><a id="menuPage2" href="#page-2">Page 2</a></li>
-                                    <li class="link"><a id="menuPage3" href="#page-3">Page 3</a></li>
+                                    <li class="link"><a id="menuHome" href="#home"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                                    <li class="link"><a id="menuPage1" href="#page-1"><i class="fa fa-gear fa-fw"></i> Page 1</a></li>
+                                    <li class="link"><a id="menuPage2" href="#page-2"><i class="fa fa-gear fa-fw"></i> Page 2</a></li>
+                                    <li class="link"><a id="menuPage3" href="#page-3"><i class="fa fa-gear fa-fw"></i> Page 3</a></li>
+                                    <li class="link"><a id="logout" href="#logout"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
                                 </ul>
                             </div>
                         </nav>`;

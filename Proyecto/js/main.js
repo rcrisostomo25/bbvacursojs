@@ -13,9 +13,10 @@ class MainController {
     }
 
 	init() {
-       this._login = new Login(this._container);
+       this._userController = new UserController(this._navigation);
+       this._login = new Login(this._container, this._userController);
        this._navigation.agregarPaginaNavegacion(this._login);
-       this._crearCuenta = new CrearCuenta(this._container);
+       this._crearCuenta = new CrearCuenta(this._container, this._userController);
        this._navigation.agregarPaginaNavegacion(this._crearCuenta);
        this._home = new Home(this._container);
        this._navigation.agregarPaginaNavegacion(this._home);
@@ -25,7 +26,6 @@ class MainController {
        this._navigation.agregarPaginaNavegacion(this._page2);
        this._page3 = new Page3(this._container);
        this._navigation.agregarPaginaNavegacion(this._page3);
-       this._userController = new UserController(this._navigation);
 	}
 
     irLogin() {
