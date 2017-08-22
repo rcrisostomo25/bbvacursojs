@@ -1,0 +1,201 @@
+* {
+    box-sizing: border-box;
+}
+
+figure {
+    line-height: .7;
+    margin: 0;
+    position: relative;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+.site-header, .site-menu, .site-body, .site-footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 955px;
+}
+
+.site-header {
+    background-image: url(./bg_header.png);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    margin-bottom: 3px;
+    margin-top: 8px;
+}
+
+.site-header .site-logo {
+    height: 105px;
+    /*padding-top: 28px;*/
+    text-align: center;
+}
+
+.site-menu {
+    border-top: 1px solid #d5e1e1;
+    margin-bottom: 8px;
+}
+
+.site-menu .box-content {
+    text-align: center;
+}
+
+.site-menu .home-menu {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-menu .link {
+    font-size: 15px;
+    padding: 0 13px 0 5px;
+}
+
+.site-menu .link.first {
+    padding-left: 0!important;
+}
+
+.site-menu .link {
+    background-image: url(./dot.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    font: 16px "ChronicleDisplayBold";
+    padding: 0 23px 0 15px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.site-menu .link a {
+    color: #444;
+    display: block;
+    padding: 13px 0;
+}
+
+.site-footer {
+    color: #000;
+    font: 11px "Open Sans";
+}
+
+.site-footer .footer-cols {
+    background-color: #f7c600;
+    padding: 30px 20px 40px;
+}
+
+.site-footer .footer-cols .site-info {
+    width: 25%;
+}
+
+.site-footer .footer-cols .site-info {
+    padding-left: 0!important;
+}
+
+.site-footer .toggle-content {
+    width: 680px;
+}
+
+.site-footer .toggle-content {
+    display: table-cell;
+}
+
+.site-footer .footer-cols .ec-mails, .site-footer .footer-cols .ec-links, .site-footer .footer-cols .ec-gda {
+    width: 226px;
+}
+
+.site-footer .footer-cols .site-info, .site-footer .footer-cols .ec-mails, .site-footer .footer-cols .ec-links, .site-footer .footer-cols .ec-gda {
+    padding-left: 13px;
+    padding-right: 0;
+}
+
+.site-footer .footer-cols .ec-gda {
+    width: 226px;
+}
+
+.site-footer .gec-sites {
+    background-color: #ebebeb;
+    padding: 20px 20px 15px;
+    /* text-transform: uppercase; */
+}
+
+.site-footer .footer-cols .site-info .site-logo {
+    display: block;
+    margin-bottom: 10px;
+    width: 220px;
+}
+
+.site-footer a {
+    color: #000;
+}
+
+.site-footer .footer-cols .site-info .site-legal li {
+    margin-bottom: 3px;
+}
+
+.site-footer .toggle-content {
+    width: 680px;
+}
+
+.site-footer .footer-cols .ec-mails ul li {
+    font-size: 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-cols .ec-links ul li {
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-cols .ec-gda p {
+    background-image: url(../img/logo_gda.png);
+    background-repeat: no-repeat;
+    bottom: 0;
+    display: block;
+    font-size: 10px;
+    height: 45px;
+    left: 20px;
+    margin: 0;
+    padding: 10px 0 0 85px;
+    position: absolute;
+    width: 100%;
+}
+
+.site-footer .gec-sites {
+    background-color: #ebebeb;
+    padding: 20px 20px 15px;
+    text-transform: uppercase;
+}
+
+.site-footer .gec-sites .title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.site-footer .gec-sites ul {
+    display: inline;
+}
+
+.site-footer .gec-sites ul li {
+    display: inline-block;
+    line-height: 22px;
+    margin-right: 3px;
+}
+
+
+/*¨LOGIN ¡*/
+
+.login-panel {
+    margin-top: 25%;
+}
+
+body {
+    background-color: #f8f8f8;
+}
