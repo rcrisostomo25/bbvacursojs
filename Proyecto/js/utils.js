@@ -20,13 +20,13 @@ class GestorPageHtml {
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="portlet-body">
-                                    <form accept-charset="UTF-8" role="form">
+                                    <form id="formCrearUsuario" accept-charset="UTF-8" role="form">
                                         <fieldset>
                                             <div class="form-group">
-                                                <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text">
+                                                <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text" required="true">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="" >
                                             </div>
                                             <div class="checkbox">
                                                 <label>
@@ -65,16 +65,16 @@ class GestorPageHtml {
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="portlet-body">
-                                    <form accept-charset="UTF-8" role="form">
+                                    <form id="formCrearUsuario" accept-charset="UTF-8" role="form">
                                         <fieldset>
                                             <div class="form-group">
-                                                <input id="txtEmail" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                                <input id="txtEmail" class="form-control" placeholder="E-mail" name="email" type="email" autofocus required="true" alt="E-mail">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtApellidos" class="form-control" placeholder="Apellidos" name="apellidos" type="text" value="">
+                                                <input id="txtApellidos" class="form-control" placeholder="Apellidos" name="apellidos" type="text" value="" required="true" alt="Apellidos">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtNombre" class="form-control" placeholder="Nombre" name="nombre" type="text" value="">
+                                                <input id="txtNombre" class="form-control" placeholder="Nombre" name="nombre" type="text" value="" required="true" alt="Nombre">
                                             </div>
                                             <div class="form-group">
                                                 <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text" value="">

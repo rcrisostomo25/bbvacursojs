@@ -14,7 +14,7 @@ class Page {
 class Login extends Page {
 	constructor(container, userController) {
 		super("Iniciar Sesión","#login", container);
-		this._userController = userController;
+		this._userController = userController;		
 	}
 
 	pintarContenido() {
@@ -50,6 +50,7 @@ class CrearCuenta extends Page {
 	constructor(container, userController) {
 		super("Crear cuenta", "#crear-usuario", container);
 		this._userController = userController;
+		this._validator = new Validator();
 	}
 
 	pintarContenido() {
@@ -75,14 +76,21 @@ class CrearCuenta extends Page {
 	}
 
 	crearUsuario() {
+		console.log(this._validator.validarCamposObligatorios("formCrearUsuario"));
+		
 		let txtEmail = this._container.querySelector("#txtEmail").value;
 		let txtApellidos = this._container.querySelector("#txtApellidos").value;
 		let txtNombre = this._container.querySelector("#txtNombre").value;
 		let txtUsername = this._container.querySelector("#txtUsername").value;
 		let txtPassword = this._container.querySelector("#txtPassword").value;
 
-		let user = new User(txtEmail, txtApellidos, txtNombre, txtUsername, txtPassword);
-		this._userController.crearUsuario(user);
+		if(txtEmail != '' && txtApellidos != '' && txtNombre != '' && txtPassword != '' && txtUsername != '') {
+			let user = new User(null, txtEmail, txtApellidos, txtNombre, txtUsername, txtPassword);
+			this._userController.crearUsuario(user);
+
+		} else {
+			GestorPageHtml.mensajeWarning("Todos los campos son obligatorios!. Por favor ingrese los campos faltantes.")
+		}
 	}
 }
 

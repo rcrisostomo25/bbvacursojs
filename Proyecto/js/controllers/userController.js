@@ -34,10 +34,12 @@ class UserController {
 
 	crearUsuario(user) {
 		this._userApiClient.crearUsuario(user)
-			.then((data) => {
+			.then((data) => {				
 	            this._navigation.invocarNavegacion("#login");
+	            GestorPageHtml.mensajeSuccess("Usuario creado correctamente!");
+
 	        }).catch((e) => {
-	            console.log("ERROR");
+	            GestorPageHtml.mensajeSuccess("Ocurrió un error inesperado, por favor intente nuevamente.");
 	        });
 	}
 
