@@ -425,6 +425,135 @@ class GestorPageHtml {
                             </form>`;
         return estructura; 
     }
+
+    static getEstructuraGraficosComida() {
+        let estructura =  `<!-- /.row -->                           
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Porcentaje de existencias por Comida
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="existencias"></div>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Cantidad de calorias por Comida
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="calorias"></div>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                            
+                            <!-- /.row --> `;
+
+        return estructura;                    
+    }
+
+    static getEstructuraGraficosBebida() {
+        let estructura =  `<!-- /.row -->                           
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Cantidad de bebidas alcoholicas y No alcoholicas
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="alcoholicas"></div>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Cantidad de calorias por Comida
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                            
+                            <!-- /.row --> `;
+
+        return estructura;                    
+    }
+
+    static openBlock() {
+        let contenedorModal = document.createElement("div");
+        contenedorModal.id = "contenedorBlock";
+        contenedorModal.innerHTML = `
+                        <div class="blockUI blockOverlay" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(0, 0, 0); opacity: 0.6; cursor: wait; position: fixed;">
+       
+                       </div>
+
+                       <div class="blockUI blockMsg blockPage" style="z-index: 1011; position: fixed; padding: 15px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(255, 255, 255); border: none; background-color: rgb(0, 0, 0); cursor: wait; border-radius: 10px; opacity: 0.5;">
+                            <img src="https://m.popkey.co/163fce/Llgbv_s-200x150.gif"></img>
+                       </div>`;
+
+        document.body.appendChild(contenedorModal);
+    }
+
+    static closeBlock(){
+        var modal = document.body.querySelector("#contenedorBlock");
+        if(modal){
+            modal.parentElement.removeChild(modal);
+        }
+    }
+
+    static mensajeSuccess(mensaje) {
+        let mensajeFlotante = document.createElement("div");
+        mensajeFlotante.id = "mensajeFlotante";
+        mensajeFlotante.className = "alert alert-success mensaje-flotante fade-in";
+        mensajeFlotante.innerHTML =  mensaje;
+        
+        document.body.appendChild(mensajeFlotante);
+
+        setTimeout(() => {
+            document.body.removeChild(mensajeFlotante);
+        },4000);
+    }
+
+    static mensajeWarning(mensaje) {
+        let mensajeFlotante = document.createElement("div");
+        mensajeFlotante.id = "mensajeFlotante";
+        mensajeFlotante.className = "alert alert-warning mensaje-flotante fade-in";
+        mensajeFlotante.innerHTML =  mensaje;
+        
+        document.body.appendChild(mensajeFlotante);
+
+        setTimeout(() => {
+            document.body.removeChild(mensajeFlotante);
+        },4000);
+    }
+
+    static mensajeError(mensaje) {
+        let mensajeFlotante = document.createElement("div");
+        mensajeFlotante.id = "mensajeFlotante";
+        mensajeFlotante.className = "alert alert-danger mensaje-flotante fade-in";
+        mensajeFlotante.innerHTML =  mensaje;
+        
+        document.body.appendChild(mensajeFlotante);
+
+        setTimeout(() => {
+            document.body.removeChild(mensajeFlotante);
+        },4000);
+    }
 }
 
 

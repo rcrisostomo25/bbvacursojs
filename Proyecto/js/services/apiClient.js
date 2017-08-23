@@ -73,7 +73,7 @@ class ApiClient {
 
     }
 
-    delete(url, params) {
+    delete(url, data) {
     	var headers = new Headers();
         headers.append("Content-Type", "application/json");
 
@@ -81,6 +81,11 @@ class ApiClient {
             method: "DELETE",
             headers: headers
         };
+
+        if(data) {
+            let jsonData = JSON.stringify(data);
+            config.body = jsonData;
+        }
 
         var promise = fetch(url, config).then((response) => {
             if(response.status >= 200 && response.status < 300) {

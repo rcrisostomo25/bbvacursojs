@@ -28,12 +28,11 @@ class Login extends Page {
 
         this._container.appendChild(this._divRowBody);
         this.generarEventoBotonesLogin();
-        this.generarEventoRecordar();
-	}
+    }
 
 	generarEventoBotonesLogin() {
 		let btnLogin = this._container.querySelector("#btnLogin");
-		btnLogin.addEventListener("click",() => this.autenticacion()); 
+		btnLogin.addEventListener("click",() => this.autenticacion());
 
 		let btnCrearCuenta = this._container.querySelector("#btnCrearCuenta");
 		btnCrearCuenta.addEventListener("click",() => this._navigation.invocarNavegacion("#crear-usuario")); 
@@ -42,28 +41,8 @@ class Login extends Page {
 	autenticacion() {
 		let txtUsername = this._container.querySelector("#txtUsername").value;
 		let txtPassword = this._container.querySelector("#txtPassword").value;
-		this._userController.validarLogin(txtUsername, txtPassword);
-	}
-
-	generarEventoRecordar() {
-		let chkRecordar = this._container.querySelector("#chkRecordar");
-		chkRecordar.addEventListener("click",() => this.recordarusuario(chkRecordar.checked)); 
-	}
-
-	recordarusuario(isChecked) {
-		if(isChecked) {
-			let txtUsuario = this._container.querySelector("#txtUsuario").value;
-			let txtPassword = this._container.querySelector("#txtPassword").value;
-			if(txtUsuario != '' && txtPassword != '') {
-				let user = {
-					user: txtUsuario,
-					pass: txtPassword
-				}
-				localStorage.setItem("recordar", JSON.stringify(user));
-			}
-		} else {
-			localStorage.setItem("recordar",null);
-		}
+		let chkRecordar = this._container.querySelector("#chkRecordar").checked;
+		this._userController.validarLogin(txtUsername, txtPassword, chkRecordar);
 	}
 }
 
@@ -154,21 +133,126 @@ class InnerPage extends Page {
         menuPage3.addEventListener("click", () => this._navigation.invocarNavegacion("#usuario"));
 
         let logout = this._container.querySelector("#logout");
-        logout.addEventListener("click", () => this._navigation.invocarNavegacion("#login"));
+        logout.addEventListener("click", () => {
+        	localStorage.removeItem("userSession");
+        	this._navigation.invocarNavegacion("#login");
+        });
 	}
 }
 
 class Home extends InnerPage {
-	constructor(container) {
+	constructor(container, apiClient) {
 		super("Home","#home",container);
+		this._apiClient = apiClient;
+		this._comidaApiClient = new ComidaApiClient(this._apiClient);
+		this._bebidaApiClient = new BebidaApiClient(this._apiClient);	
 	}
 
 	pintarContenido() {
+		GestorPageHtml.openBlock();
+
 		this._divRowBody = document.createElement("div");
         this._divRowBody.className = "row site-body";
-        this._divRowBody.innerHTML = "Home";
+
+        let estructura = GestorPageHtml.getEstructuraGraficosComida();
+        this._divRowBody.innerHTML = estructura;
+
+        estructura = GestorPageHtml.getEstructuraGraficosBebida();
+        this._divRowBody.innerHTML += estructura;
 
         this.pintarPaginaCompleta();
+        this.cargarInformacionDeComidas();
+          
+	}
+
+	cargarInformacionDeComidas() {
+		this._comidaApiClient.obtenerListaComidas().then((data) => {
+        	let totalExistencias = 0;
+        	let arrayGraficoExistencias = [];
+        	let arrayGraficoCalorias = [];
+        	for(let indice = 0; indice < data.length; indice ++) {
+        		let comida = {
+            		y: data[indice]._calorias,
+            		x: data[indice]._nombre
+            	}
+            	totalExistencias += data[indice]._existencias;
+            	arrayGraficoCalorias.push(comida);
+        	}
+            for(let indice = 0; indice < data.length; indice ++) {
+            	let valorPorcentual = parseInt(data[indice]._existencias * 100 / totalExistencias);
+            	let comida = {
+            		value: valorPorcentual,
+            		label: data[indice]._nombre
+            	}
+            	arrayGraficoExistencias.push(comida);
+            }
+
+            this.pintarGraficoPie(arrayGraficoExistencias, "existencias");
+            this.pintarGraficoBarras(arrayGraficoCalorias, "calorias");
+
+            this.cargarInformacionDeBebidas();
+        });
+	}
+
+	cargarInformacionDeBebidas() {
+		this._bebidaApiClient.obtenerListaBebidas().then((data) => {
+			let totalAlcoholicas = 0;
+			let totalNoAlcoholicas = 0;
+        	let arrayGraficoBebidasAlcoholicas = [];
+
+        	for(let indice = 0; indice < data.length; indice ++) {
+        		if(data[indice]._esAlcoholica) {
+        			totalAlcoholicas++;
+        		} else {
+        			totalNoAlcoholicas++;
+        		}
+        	}
+
+        	let objAlco = {
+        		x: "Alcoholicas",
+        		y: totalAlcoholicas
+        	}
+        	arrayGraficoBebidasAlcoholicas.push(objAlco);
+
+        	let objNoAlco = {
+        		x: "No Alcoholicas",
+        		y: totalNoAlcoholicas
+        	}
+        	arrayGraficoBebidasAlcoholicas.push(objNoAlco);
+        	this.pintarGraficoBarras(arrayGraficoBebidasAlcoholicas, "alcoholicas");
+        	GestorPageHtml.closeBlock();
+        });
+	} 
+
+	pintarGraficoPie(data, element) {
+		 Morris.Donut({
+		  element: element,
+		  data: data,
+		  formatter: function (x) { return x + "%"}
+		}).on('click', function(i, row){
+		  console.log(i, row);
+		});
+	}
+
+	pintarGraficoBarras(data, element) {
+		 Morris.Bar({
+		  element: element,
+		  data: data,
+		  xkey: 'x',
+		  ykeys: ['y'],
+		  labels: ['Y'],
+		  barColors: function (row, series, type) {
+		    if (type === 'bar') {
+		      var R = Math.floor((Math.random() * 256));
+		      var G = Math.floor((Math.random() * 256));
+		      return 'rgb(' + R + ','+ G +',0)';
+		    }
+		    else {
+		      return '#000';
+		    }
+		  },
+		  xLabelAngle: 35
+		});
 	}
 }
 
@@ -176,7 +260,8 @@ class ComidaPage extends InnerPage {
 	constructor(container, apiClient) {
 		super("Comidas","#comida",container);
 		this._apiClient = apiClient;
-		this._comidaApiClient = new ComidaApiClient(this._apiClient);	
+		this._comidaApiClient = new ComidaApiClient(this._apiClient);
+		this._bebidaApiClient = new BebidaApiClient(this._apiClient);
 	}
 
 	pintarContenido() {
@@ -484,13 +569,14 @@ class UsuarioPage extends InnerPage {
         this._divRowBody.className = "row site-body";
         this._divRowBody.innerHTML = GestorPageHtml.getEstructuraEditarUsuario();
 
-        this._userController.obtenerDatosUsuario("599c70b4e173ce04fa551604").then((data) => {
+        this._userController.obtenerDatosUsuario(this._userController._user._id).then((data) => {
             this._divRowBody.querySelector("#txtEmail").value = data._email;
             this._divRowBody.querySelector("#txtApellidos").value = data._apellidos;
             this._divRowBody.querySelector("#txtNombre").value = data._nombre;
             this._divRowBody.querySelector("#txtUsername").value = data._username;            
             this.pintarPaginaCompleta();
             this.generarEventoBotonesPerfilUsuario();
+            data._password = this._userController._user._password;
             this._userController._user = data;
         });
 	}
@@ -524,9 +610,8 @@ class UsuarioPage extends InnerPage {
 	confirmacionEliminarUsuario() {
 		GestorPageHtml.openModal("¿Está seguro que desea eliminar el usuario?","Confirmación","danger")
 		let btnEliminarUsuario = document.body.querySelector("#btnSuccessModal");
-		btnGuardarUsuario.addEventListener("click", () => {
-			//this._userController.guardarDatosUsuario();
-			GestorPageHtml.closeModal();
+		btnEliminarUsuario.addEventListener("click", () => {
+			this._userController.eliminarUsuario(this._userController._user);			
 		});
 	}
 }

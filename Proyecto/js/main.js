@@ -19,7 +19,8 @@ class MainController {
        this._navigation.agregarPaginaNavegacion(this._login);
        this._crearCuenta = new CrearCuenta(this._container, this._userController);
        this._navigation.agregarPaginaNavegacion(this._crearCuenta);
-       this._home = new Home(this._container);
+
+       this._home = new Home(this._container, this._apiClient);
        this._navigation.agregarPaginaNavegacion(this._home);
 
        this._comidaPage = new ComidaPage(this._container, this._apiClient);

@@ -14,7 +14,7 @@ class UserApiClient {
 
 		let promise = this._apiClient.post(completeUrl, objetoUser);
 		let anotherPromise = promise.then((data) => {
-			console.log(data);
+			return data;
 		});
 
 		return anotherPromise;
@@ -92,10 +92,14 @@ class UserApiClient {
 		return anotherPromise;
 	}
 
-	eliminarUsuario(id) {
-		let completeUrl = this._baseURL + "/" + id;
+	eliminarUsuario(user) {
+		let completeUrl = this._baseURL + "/" + user._id;
 
-		let promise = this._apiClient.delete(completeUrl, null);
+		let objUser = {
+			password : user._password
+		}
+
+		let promise = this._apiClient.delete(completeUrl, objUser);
 		let anotherPromise = promise.then((data) => {
 			console.log(data);
 			return true;
