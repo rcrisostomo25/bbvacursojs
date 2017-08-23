@@ -4,28 +4,32 @@ class MainController {
 		this._login = null;
         this._crearCuenta = null;
         this._home = null;
-        this._page1 = null;
-        this._page2 = null;
-        this._page3 = null;
+        this._comidaPage = null;
+        this._bebidaPage = null;
+        this._usuarioPage = null;
         this._userController = null;
+        this._apiClient = new ApiClient();
         this._container = null;
         this.crearEstructuraPrincipal();
     }
 
 	init() {
-       this._userController = new UserController(this._navigation);
+       this._userController = new UserController(this._navigation, this._apiClient);
        this._login = new Login(this._container, this._userController);
        this._navigation.agregarPaginaNavegacion(this._login);
        this._crearCuenta = new CrearCuenta(this._container, this._userController);
        this._navigation.agregarPaginaNavegacion(this._crearCuenta);
        this._home = new Home(this._container);
        this._navigation.agregarPaginaNavegacion(this._home);
-       this._page1 = new Page1(this._container);
-       this._navigation.agregarPaginaNavegacion(this._page1);
-       this._page2 = new Page2(this._container);
-       this._navigation.agregarPaginaNavegacion(this._page2);
-       this._page3 = new Page3(this._container);
-       this._navigation.agregarPaginaNavegacion(this._page3);
+
+       this._comidaPage = new ComidaPage(this._container, this._apiClient);
+       this._navigation.agregarPaginaNavegacion(this._comidaPage);
+
+       this._bebidaPage = new BebidaPage(this._container, this._apiClient);
+       this._navigation.agregarPaginaNavegacion(this._bebidaPage);
+
+       this._usuarioPage = new UsuarioPage(this._container, this._userController);
+       this._navigation.agregarPaginaNavegacion(this._usuarioPage);
 	}
 
     irLogin() {

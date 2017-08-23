@@ -38,4 +38,37 @@ class UserApiClient {
 
 		return anotherPromise;
 	}
+
+	obtenerListadoUsuarios() {
+		let completeUrl = this._baseURL;
+
+		let promise = this._apiClient.get(completeUrl, null);
+		let anotherPromise = promise.then((data) => {
+			let usuarios = [];
+			for(let indice = 0; indice < data.length; indice ++) {
+				let elemento = data[indice];
+
+				let usuario = new User(elemento._id, elemento.email, elemento.apellidos, 
+					elemento.nombre, elemento.username, null);
+				usuarios.push(usuario);
+			}
+
+			return usuarios;
+		});
+
+		return anotherPromise;
+	}
+
+	obtenerUsuario(id) {
+		let completeUrl = this._baseURL + "/" + id;
+
+		let promise = this._apiClient.get(completeUrl, null);
+		let anotherPromise = promise.then((data) => {
+			let usuario = new User(data._id, data.email, data.apellidos, 
+					data.nombre, data.username, null);
+			return usuario;
+		});
+
+		return anotherPromise;
+	}
 }

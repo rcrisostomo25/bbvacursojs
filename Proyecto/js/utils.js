@@ -83,9 +83,9 @@ class GestorPageHtml {
                             <div class="box-content clearfix">
                                 <ul class="home-menu">
                                     <li class="link"><a id="menuHome" href="#home"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                                    <li class="link"><a id="menuPage1" href="#page-1"><i class="fa fa-gear fa-fw"></i> Page 1</a></li>
-                                    <li class="link"><a id="menuPage2" href="#page-2"><i class="fa fa-gear fa-fw"></i> Page 2</a></li>
-                                    <li class="link"><a id="menuPage3" href="#page-3"><i class="fa fa-gear fa-fw"></i> Page 3</a></li>
+                                    <li class="link"><a id="menuPage1" href="#page-1"><i class="fa fa-gear fa-fw"></i> Comidas</a></li>
+                                    <li class="link"><a id="menuPage2" href="#page-2"><i class="fa fa-beer fa-fw"></i> Bebidas</a></li>
+                                    <li class="link"><a id="menuPage3" href="#page-3"><i class="fa fa-user fa-fw"></i> Usuario</a></li>
                                     <li class="link"><a id="logout" href="#logout"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
                                 </ul>
                             </div>
@@ -103,6 +103,76 @@ class GestorPageHtml {
                             </div>
                         </footer>`;
         return siteFooter;
+    }
+
+    static getEstructuraPanel(stringReplace) {
+        let estructura =  `<!-- /.row -->
+                            <button type="button" id="btnCrear" class="btn btn-primary">Añadir</button>
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            $
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table-users table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        @
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                            
+                            <!-- /.row --> `;
+
+        return estructura.replace("@", stringReplace);                    
+    }
+
+    static getEstructuraEditarUsuario() {
+        let estructura =  `<!-- /.row -->
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Perfil de Usuario
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <label>E-mail</label>
+                                                    <input id="txtEmail" class="form-control" placeholder="E-mail">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Apellidos</label>
+                                                    <input id="txtApellidos" class="form-control" placeholder="Apellidos">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nombre</label>
+                                                    <input id="txtNombre" class="form-control" placeholder="Nombre">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Username</label>
+                                                    <input id="txtUsername" class="form-control" placeholder="Username">
+                                                </div>
+                                                <button type="button" class="btn btn-primary">Guardar</button>
+                                            </form>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                            
+                            <!-- /.row --> `;
+        return estructura;                    
     }
 }
 

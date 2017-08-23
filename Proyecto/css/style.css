@@ -79,6 +79,11 @@ ul, ol {
     padding: 13px 0;
 }
 
+.site-body button {
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
 .site-footer {
     color: #000;
     font: 11px "Open Sans";

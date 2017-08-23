@@ -138,16 +138,16 @@ class InnerPage extends Page {
 
 	generarEventoLinkMenu() {
 		let menuHome = this._container.querySelector("#menuHome");
-        menuHome.addEventListener("click", () => this._navigation.invocarNavegacion("#principal"));
+        menuHome.addEventListener("click", () => this._navigation.invocarNavegacion("#home"));
 
         let menuPage1 = this._container.querySelector("#menuPage1");
-        menuPage1.addEventListener("click", () => this._navigation.invocarNavegacion("#page-1"));
+        menuPage1.addEventListener("click", () => this._navigation.invocarNavegacion("#comida"));
 
         let menuPage2 = this._container.querySelector("#menuPage2");
-        menuPage2.addEventListener("click", () => this._navigation.invocarNavegacion("#page-2"));
+        menuPage2.addEventListener("click", () => this._navigation.invocarNavegacion("#bebida"));
 
         let menuPage3 = this._container.querySelector("#menuPage3");
-        menuPage3.addEventListener("click", () => this._navigation.invocarNavegacion("#page-3"));
+        menuPage3.addEventListener("click", () => this._navigation.invocarNavegacion("#usuario"));
 
         let logout = this._container.querySelector("#logout");
         logout.addEventListener("click", () => this._navigation.invocarNavegacion("#login"));
@@ -156,7 +156,7 @@ class InnerPage extends Page {
 
 class Home extends InnerPage {
 	constructor(container) {
-		super("Página principal","#principal",container);
+		super("Home","#home",container);
 	}
 
 	pintarContenido() {
@@ -168,44 +168,183 @@ class Home extends InnerPage {
 	}
 }
 
-class Page1 extends InnerPage {
-	constructor(container) {
-		super("Page 1","#page-1",container);
+class ComidaPage extends InnerPage {
+	constructor(container, apiClient) {
+		super("Comidas","#comida",container);
+		this._apiClient = apiClient;
+		this._comidaApiClient = new ComidaApiClient(this._apiClient);	
 	}
 
 	pintarContenido() {
 		this._divRowBody = document.createElement("div");
         this._divRowBody.className = "row site-body";
-        this._divRowBody.innerHTML = "Page 1";
 
-        this.pintarPaginaCompleta();
+        this.pintarEstructura();
+        this._comidaApiClient.obtenerListaComidas().then((data) => {
+            this.pintarComidas(data);
+            this.pintarPaginaCompleta();
+        });
 	}
+
+	pintarEstructura() {
+        let estructura = GestorPageHtml.getEstructuraPanel(`<th>Nombre</th>
+                                                            <th>Existencias</th>
+                                                            <th>Calorias</th>
+                                                            <th>Precio</th>
+                                                            <th>Tipo</th>`);
+
+        this._divRowBody.innerHTML = estructura.replace("$", "Comidas");
+    }
+
+	pintarComidas(data) {
+        let tbody = this._divRowBody.querySelector("tbody");
+        tbody.innerHTML = "";
+
+        for (let i = 0; i < data.length; i++) {
+            let comida = data[i];
+            let row = this.getRowForComida(comida);
+            tbody.appendChild(row);
+        }
+    }
+
+    getRowForComida(comida) {
+        let tr = document.createElement("tr");
+
+        let td1 = document.createElement("td");
+        td1.innerHTML = comida._nombre;
+        tr.appendChild(td1);
+
+        let td2 = document.createElement("td");
+        td2.innerHTML = comida._existencias;
+        tr.appendChild(td2);
+
+        let td3 = document.createElement("td");
+        td3.innerHTML = comida._calorias;
+        tr.appendChild(td3);
+
+        let td4 = document.createElement("td");
+        td4.innerHTML = comida._precio;
+        tr.appendChild(td4);
+
+        let td5 = document.createElement("td");
+        td5.innerHTML = comida._tipo;
+        tr.appendChild(td5);
+
+        return tr;
+    }
 }
 
-class Page2 extends InnerPage {
-	constructor(container) {
-		super("Psge 2","#page-2",container);
+class BebidaPage extends InnerPage {
+	constructor(container, apiClient) {
+		super("Bebidas","#bebida",container);
+		this._apiClient = apiClient;
+		this._bebidaApiClient = new BebidaApiClient(this._apiClient);	
 	}
 
 	pintarContenido() {
 		this._divRowBody = document.createElement("div");
         this._divRowBody.className = "row site-body";
-        this._divRowBody.innerHTML = "Page 2";
-
-        this.pintarPaginaCompleta();
+        
+        this.pintarEstructura();
+        this._bebidaApiClient.obtenerListaBebidas().then((data) => {
+            this.pintarBebidas(data);
+            this.pintarPaginaCompleta();
+        });
 	}
+
+	pintarEstructura() {
+        let estructura = GestorPageHtml.getEstructuraPanel(`<th>Nombre</th>
+                                                            <th>Existencias</th>
+                                                            <th>Calorias</th>
+                                                            <th>Precio</th>
+                                                            <th>Alcoholica?</th>
+                                                            <th>Grados</th>`);
+
+        this._divRowBody.innerHTML = estructura.replace("$", "Bebidas");
+    }
+
+	pintarBebidas(data) {
+        let tbody = this._divRowBody.querySelector("tbody");
+        tbody.innerHTML = "";
+
+        for (let i = 0; i < data.length; i++) {
+            let bebida = data[i];
+            let row = this.getRowForBebida(bebida);
+            tbody.appendChild(row);
+        }
+    }
+
+    getRowForBebida(bebida) {
+        let tr = document.createElement("tr");
+
+        let td1 = document.createElement("td");
+        td1.innerHTML = bebida._nombre;
+        tr.appendChild(td1);
+
+        let td2 = document.createElement("td");
+        td2.innerHTML = bebida._existencias;
+        tr.appendChild(td2);
+
+        let td3 = document.createElement("td");
+        td3.innerHTML = bebida._calorias;
+        tr.appendChild(td3);
+
+        let td4 = document.createElement("td");
+        td4.innerHTML = bebida._precio;
+        tr.appendChild(td4);
+
+        let td5 = document.createElement("td");
+        td5.innerHTML = bebida._esAlcoholica ? "SI" : "NO";
+        tr.appendChild(td5);
+
+        let td6 = document.createElement("td");
+        td6.innerHTML = bebida._grados;
+        tr.appendChild(td6);
+
+        return tr;
+    }
 }
 
-class Page3 extends InnerPage {
-	constructor(container) {
-		super("Page 3","#page-3",container);
+class UsuarioPage extends InnerPage {
+	constructor(container, userController) {
+		super("Usuarios","#usuario",container);
+		this._userController = userController;
 	}
 
 	pintarContenido() {
 		this._divRowBody = document.createElement("div");
         this._divRowBody.className = "row site-body";
-        this._divRowBody.innerHTML = "Page 3";
+        this._divRowBody.innerHTML = GestorPageHtml.getEstructuraEditarUsuario();
 
-        this.pintarPaginaCompleta();
+        this._userController.obtenerDatosUsuario("599c70b4e173ce04fa551604").then((data) => {
+            this._divRowBody.querySelector("#txtEmail").value = data._email;
+            this._divRowBody.querySelector("#txtApellidos").value = data._apellidos;
+            this._divRowBody.querySelector("#txtNombre").value = data._nombre;
+            this._divRowBody.querySelector("#txtUsername").value = data._username;
+            console.log(this._divRowBody.querySelector("#txtUsername").value);
+            this.pintarPaginaCompleta();
+            console.log(this._divRowBody.querySelector("#txtUsername").value);
+        });
 	}
 }
+
+class Comida {
+	constructor(nombre, existencias, calorias, precio, tipo) {
+		this._nombre = nombre;
+		this._existencias = existencias;
+		this._calorias = calorias;
+		this._precio = precio;
+		this._tipo = tipo;
+	}
+} 
+
+class Bebida {
+	constructor(nombre, existencias, calorias, precio, esAlcoholica, grados) {
+		this._nombre = nombre;
+		this._existencias = existencias;
+		this._calorias = calorias;
+		this._precio = precio;
+		this._esAlcoholica = esAlcoholica;
+		this._grados = grados;
+	}
+} 
