@@ -310,7 +310,7 @@ class ComidaPage extends InnerPage {
 				let existencias = document.body.querySelector("#txtExistencias").value;
 				let nombre = document.body.querySelector("#txtNombre").value;
 
-				let comida = new Comida(nombre, existencias, calorias, precio, tipo);
+				let comida = new Comida(null, nombre, existencias, calorias, precio, tipo);
 
 				this._comidaApiClient.crearComida(comida).then((data) => {
 					this.listarComidas();
@@ -333,9 +333,14 @@ class BebidaPage extends InnerPage {
         this._divRowBody.className = "row site-body";
         
         this.pintarEstructura();
-        this._bebidaApiClient.obtenerListaBebidas().then((data) => {
+        this.pintarPaginaCompleta();
+        this.listarBebidas();
+	}
+
+	listarBebidas() {
+		this._bebidaApiClient.obtenerListaBebidas().then((data) => {
             this.pintarBebidas(data);
-            this.pintarPaginaCompleta();
+            this.generarEventoAgregarBebida();
         });
 	}
 
@@ -343,9 +348,7 @@ class BebidaPage extends InnerPage {
         let estructura = GestorPageHtml.getEstructuraPanel(`<th>Nombre</th>
                                                             <th>Existencias</th>
                                                             <th>Calorias</th>
-                                                            <th>Precio</th>
-                                                            <th>Alcoholica?</th>
-                                                            <th>Grados</th>`);
+                                                            <th>Acciones</th>`);
 
         this._divRowBody.innerHTML = estructura.replace("$", "Bebidas");
     }
@@ -377,18 +380,96 @@ class BebidaPage extends InnerPage {
         tr.appendChild(td3);
 
         let td4 = document.createElement("td");
-        td4.innerHTML = bebida._precio;
+        
+        let btnVer = document.createElement("button");
+        btnVer.className = "btn btn-primary btn-circle";
+        btnVer.innerHTML = `<i class="fa fa-search"></i>`;
+        btnVer.addEventListener("click", () => this.generarEventoVerBebida(bebida));
+        td4.appendChild(btnVer);
+
+        let btnEditar = document.createElement("button");
+        btnEditar.className = "btn btn-warning btn-circle";
+        btnEditar.innerHTML = `<i class="fa fa-pencil"></i>`;
+        btnEditar.addEventListener("click", () => this.generarEventoEditarBebida(bebida));
+        td4.appendChild(btnEditar);
+
+        let btnEliminar = document.createElement("button");
+        btnEliminar.className = "btn btn-danger btn-circle";
+        btnEliminar.innerHTML = `<i class="fa fa-trash-o"></i>`;
+        btnEliminar.addEventListener("click", () => this.generarEventoEliminarBebida(bebida));
+        td4.appendChild(btnEliminar);
+
         tr.appendChild(td4);
 
-        let td5 = document.createElement("td");
-        td5.innerHTML = bebida._esAlcoholica ? "SI" : "NO";
-        tr.appendChild(td5);
-
-        let td6 = document.createElement("td");
-        td6.innerHTML = bebida._grados;
-        tr.appendChild(td6);
-
         return tr;
+    }
+
+    generarEventoAgregarBebida() {
+    	let btnAgregarBebida = this._container.querySelector("#btnCrear");
+    	btnAgregarBebida.addEventListener("click", () => {
+    		GestorPageHtml.openModal(GestorPageHtml.estructuraBebida(),"Agregar Bebida","primary");
+    		let btnGuardarComida = document.body.querySelector("#btnSuccessModal");
+			btnGuardarComida.addEventListener("click", () => {
+											
+				let nombre = document.body.querySelector("#txtNombre").value;
+				let existencias = document.body.querySelector("#txtExistencias").value;
+				let calorias = document.body.querySelector("#txtCalorias").value;
+				let precio = document.body.querySelector("#txtPrecio").value;
+				let esAlcoholica = document.body.querySelector("#cboEsAlcoholica").value == 1 ? true : false;
+				let grados = document.body.querySelector("#txtGrados").value;
+
+				let bebida = new Bebida(null, nombre, existencias, calorias, precio, esAlcoholica, grados);
+
+				this._bebidaApiClient.crearBebida(bebida).then((data) => {
+					this.listarBebidas();
+		            GestorPageHtml.closeModal();
+		        });				
+			});
+    	});
+    }
+
+    generarEventoVerBebida(bebida) {
+    	this._bebidaApiClient.obtenerBebida(bebida._id).then((data) => {
+			GestorPageHtml.openModal(GestorPageHtml.estructuraVerBebida(bebida), "Ver datos Bebida", "primary");
+        });
+    }
+
+    generarEventoEditarBebida(bebida) {
+    	this._bebidaApiClient.obtenerBebida(bebida._id).then((data) => {
+			GestorPageHtml.openModal(GestorPageHtml.estructuraEditarBebida(bebida), "Edición Bebida", "primary");
+
+			let btnGuardarBebida = document.body.querySelector("#btnSuccessModal");
+			btnGuardarBebida.addEventListener("click", () => {
+
+				let nombre = document.body.querySelector("#txtNombre").value;
+				let existencias = document.body.querySelector("#txtExistencias").value;
+				let calorias = document.body.querySelector("#txtCalorias").value;
+				let precio = document.body.querySelector("#txtPrecio").value;
+				let esAlcoholica = document.body.querySelector("#cboEsAlcoholica").value == 1 ? true : false;
+				let grados = document.body.querySelector("#txtGrados").value;
+				
+				let objBebida = new Bebida(bebida._id, nombre, existencias, calorias, precio, esAlcoholica, grados);
+
+				this._bebidaApiClient.guardarBebida(objBebida).then((data) => {
+					this.listarBebidas();
+		            GestorPageHtml.closeModal();
+		        });	
+
+			});
+
+        });
+    }
+
+    generarEventoEliminarBebida(bebida) {
+    	GestorPageHtml.openModal("¿Estás seguro que deseas eliminar?", "Eliminación", "danger");
+    	
+    	let btnEliminarBebida = document.body.querySelector("#btnSuccessModal");
+		btnEliminarBebida.addEventListener("click", () => {
+			this._bebidaApiClient.eliminarBebida(bebida._id).then((data) => {	
+				this.listarBebidas();	
+				GestorPageHtml.closeModal();
+        	});
+		});    	
     }
 }
 

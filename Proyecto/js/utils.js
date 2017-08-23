@@ -329,6 +329,102 @@ class GestorPageHtml {
                             </form>`;
         return estructura; 
     }
+
+    static estructuraBebida() {
+        let estructura =  `<form role="form">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input id="txtNombre" class="form-control" placeholder="Nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label>Existencias</label>
+                                    <input id="txtExistencias" class="form-control" placeholder="Existencias">
+                                </div>
+                                <div class="form-group">
+                                    <label>Calorias</label>
+                                    <input id="txtCalorias" class="form-control" placeholder="Calorias">
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio</label>
+                                    <input id="txtPrecio" class="form-control" placeholder="Precio">
+                                </div>
+                                <div class="form-group">
+                                    <label>Es alcohólica?</label>
+                                    <select id="cboEsAlcoholica" class="form-control">
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>   
+                                <div class="form-group">
+                                    <label>Grados</label>
+                                    <input id="txtGrados" class="form-control" placeholder="Grados">
+                                </div>                              
+                            </form>`;
+        return estructura; 
+    }
+
+    static estructuraVerBebida(bebida) {
+        let estructura =  `<form role="form">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <p class="form-control-static">${bebida._nombre}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Existencias</label>
+                                    <p class="form-control-static">${bebida._existencias}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Calorias</label>
+                                    <p class="form-control-static">${bebida._calorias}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio</label>
+                                    <p class="form-control-static">${bebida._precio}</p>
+                                </div>   
+                                <div class="form-group">
+                                    <label>Es alcoholica?</label>
+                                    <p class="form-control-static">${bebida._esAlcoholica ? 'SI' : 'NO'}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Grados</label>
+                                    <p class="form-control-static">${bebida._grados}</p>
+                                </div>                              
+                            </form>`;
+        return estructura; 
+    }
+
+    static estructuraEditarBebida(bebida) {
+        let estructura =  `<form role="form">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Existencias</label>
+                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Calorias</label>
+                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio</label>
+                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}">
+                                </div>
+                                <div class="form-group" value="${bebida._esAlcoholica ? 1 : 0}">
+                                    <label>Es alcohólica?</label>
+                                    <select id="cboEsAlcoholica" class="form-control">
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>   
+                                <div class="form-group">
+                                    <label>Grados</label>
+                                    <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}">
+                                </div>                              
+                            </form>`;
+        return estructura; 
+    }
 }
 
 
