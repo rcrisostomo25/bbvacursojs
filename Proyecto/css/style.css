@@ -1,3 +1,90 @@
+/*LOGIN STYLE*/
+.login {
+    background-color: #34495e;
+}
+
+.login-banner {
+    margin: 50px 0;
+    color: #fff;
+}
+
+.portlet {
+    border: 1px solid;
+}
+
+.portlet-green, .portlet-green>.portlet-heading {
+    border-color: #16a085;
+}
+
+.portlet .login-heading {
+    padding: 15px;
+}
+
+.portlet-green>.portlet-heading {
+    color: #fff;
+    background-color: #16a085;
+}
+
+.portlet-green, .portlet-green>.portlet-heading {
+    border-color: #16a085;
+}
+
+.portlet .portlet-body {
+    padding: 15px;
+    background: #fff;
+}
+
+.portlet .portlet-heading .portlet-title {
+    float: left;
+}
+
+.portlet .portlet-heading .portlet-title h4 {
+    margin: 10px 0;
+}
+
+.portlet .portlet-heading h4 {
+    padding: 1px 0;
+    font-size: 16px;
+}
+
+.portlet .portlet-heading .portlet-widgets {
+    float: right;
+    margin: 8px 0;
+}
+
+.btn-white {
+    border-color: #cccccc;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.radio, .checkbox {
+    min-height: 18px;
+}
+
+input[type="checkbox"], .checkbox input[type="checkbox"] {
+    /*position: relative;
+    -webkit-appearance: none; */   
+    width: 13px;
+    height: 13px;
+    border: 1px solid #dcdcdc;    
+    border-radius: 1px;
+    background: white;
+}
+
+.btn-green {
+    border-color: #15987e;
+    color: #fff;
+    background-color: #16a085;
+}
+/*FIN STYLE LOGIN*/
+
+.img-circle {
+    border-radius: 50%;
+    width: 123px;
+    height: 102px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -30,15 +117,29 @@ a {
 .site-header .site-logo {
     height: 105px;
     /*padding-top: 28px;*/
-    text-align: center;
+    /*text-align: center;*/
+}
+
+.site-logo div:first-child {
+    float: left;
+    width: 14%;
+}
+
+.site-logo .div-title {
+    margin-top: 35px;
+}
+
+.site-logo .div-title h2 {
+    color: white
 }
 
 .site-menu {
     border-top: 1px solid #d5e1e1;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
 }
 
 .site-menu .box-content {
+    /*background-color: white;*/
     text-align: center;
 }
 
@@ -79,9 +180,13 @@ ul, ol {
     padding: 13px 0;
 }
 
+.site-body {
+    background-color: white;
+    padding-top: 15px;
+}
+
 .site-body button {
-    margin-bottom: 15px;
-    margin-left: 15px;
+     margin-left: 15px;
 }
 
 .site-footer {
@@ -203,4 +308,18 @@ ul, ol {
 
 body {
     background-color: #f8f8f8;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+}
+
+#btnCrear {
+    margin-bottom: 15px;
 }

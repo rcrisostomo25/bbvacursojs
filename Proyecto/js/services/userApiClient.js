@@ -71,4 +71,36 @@ class UserApiClient {
 
 		return anotherPromise;
 	}
+
+	guardarUsuario(user) {
+		let completeUrl = this._baseURL + "/" + user._id;
+
+		let objetoUser = {
+			email: user._email,
+			apellidos: user._apellidos,
+			nombre: user._nombre,
+			username: user._username,
+			password: user._password
+		}
+
+		let promise = this._apiClient.put(completeUrl, objetoUser);
+		let anotherPromise = promise.then((data) => {
+			console.log(data);
+			return true;
+		});
+
+		return anotherPromise;
+	}
+
+	eliminarUsuario(id) {
+		let completeUrl = this._baseURL + "/" + id;
+
+		let promise = this._apiClient.delete(completeUrl, null);
+		let anotherPromise = promise.then((data) => {
+			console.log(data);
+			return true;
+		});
+
+		return anotherPromise;
+	}
 }

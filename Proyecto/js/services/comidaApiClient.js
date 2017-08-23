@@ -13,7 +13,7 @@ class ComidaApiClient {
 			for(let indice = 0; indice < data.length; indice++ ){
 				let elemento = data[indice];
 
-				let comida = new Comida(elemento.nombre, elemento.existencias,
+				let comida = new Comida(elemento._id, elemento.nombre, elemento.existencias,
 					 elemento.calorias, elemento.precio, elemento.tipo);
 				comidas.push(comida);
 			}
@@ -24,34 +24,66 @@ class ComidaApiClient {
 		return anotherPromise;
 	}
 
-	crearComida() {
+	crearComida(comida) {
 		let completeUrl = this._baseURL;
 
-		let promise = this._apiClient.post(completeUrl, null);
+		let objComida = {
+			tipo: comida._tipo,
+			precio: comida._precio,
+			calorias: comida._calorias,
+			existencias: comida._existencias,
+			nombre: comida._nombre
+		}
+
+		let promise = this._apiClient.post(completeUrl, objComida);
 		let anotherPromise = promise.then((data) => {
 			console.log(data);
+			return true;
 		});
 
 		return anotherPromise;
 	}
 
-	editarComida() {
-		let completeUrl = this._baseURL;
+	guardarComida(comida) {
+		let completeUrl = this._baseURL + "/" + comida._id;
 
-		let promise = this._apiClient.post(completeUrl, null);
+		let objComida = {
+			tipo: comida._tipo,
+			precio: comida._precio,
+			calorias: comida._calorias,
+			existencias: comida._existencias,
+			nombre: comida._nombre
+		}
+
+		let promise = this._apiClient.put(completeUrl, objComida);
 		let anotherPromise = promise.then((data) => {
 			console.log(data);
+			return true;
 		});
 
 		return anotherPromise;
 	}
 
-	eliminarComida() {
-		let completeUrl = this._baseURL;
+	eliminarComida(id) {
+		let completeUrl = this._baseURL + "/" + id;
 
-		let promise = this._apiClient.post(completeUrl, null);
+		let promise = this._apiClient.delete(completeUrl, null);
 		let anotherPromise = promise.then((data) => {
 			console.log(data);
+			return true;
+		});
+
+		return anotherPromise;
+	}
+
+	obtenerComida(id) {
+		let completeUrl = this._baseURL + "/" + id;
+
+		let promise = this._apiClient.get(completeUrl, null);
+		let anotherPromise = promise.then((data) => {
+			let comida = new User(data._id, data.nombre, data.exitencias, 
+					data.calorias, data.precio, data.tipo);
+			return comida;
 		});
 
 		return anotherPromise;

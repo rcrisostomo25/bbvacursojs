@@ -113,25 +113,29 @@ class InnerPage extends Page {
 	}
 
 	pintarCabecera() {
-		let cabecera = GestorPageHtml.getCabecera();
-        this._container.innerHTML = cabecera;
+		this._container.innerHTML = "";
+
+        let divCabecera = document.createElement("div");
+		divCabecera.innerHTML = GestorPageHtml.getCabecera();
+        this._container.appendChild(divCabecera);
 	}
 
 	pintarMenu() {
-		let menu = GestorPageHtml.getMenu();
-        this._container.innerHTML += menu;
+		let divMenu = document.createElement("div");
+		divMenu.innerHTML = GestorPageHtml.getMenu();
+        this._container.appendChild(divMenu);
     }
 
 	pintarPieDePagina() {
-		let pieDePagina = GestorPageHtml.getPieDePagina();
-        this._container.innerHTML += pieDePagina;
+		let divPiePagina = document.createElement("div");
+		divPiePagina.innerHTML = GestorPageHtml.getPieDePagina();
+        this._container.appendChild(divPiePagina);
 	}
 
 	pintarPaginaCompleta() {
-		document.body.setAttribute("style","background-color: #fff;");
 		this.pintarCabecera();
-		this.pintarMenu();
-		this._container.appendChild(this._divRowBody);
+		this.pintarMenu();		
+		this._container.appendChild(this._divRowBody);		
 		this.pintarPieDePagina();
 		this.generarEventoLinkMenu();
 	}
@@ -180,9 +184,14 @@ class ComidaPage extends InnerPage {
         this._divRowBody.className = "row site-body";
 
         this.pintarEstructura();
-        this._comidaApiClient.obtenerListaComidas().then((data) => {
-            this.pintarComidas(data);
-            this.pintarPaginaCompleta();
+        this.pintarPaginaCompleta();
+        this.listarComidas();
+	}
+
+	listarComidas() {
+		this._comidaApiClient.obtenerListaComidas().then((data) => {
+            this.pintarComidas(data);            
+            this.generarEventoAgregarComida();
         });
 	}
 
@@ -190,8 +199,7 @@ class ComidaPage extends InnerPage {
         let estructura = GestorPageHtml.getEstructuraPanel(`<th>Nombre</th>
                                                             <th>Existencias</th>
                                                             <th>Calorias</th>
-                                                            <th>Precio</th>
-                                                            <th>Tipo</th>`);
+                                                            <th>Acciones</th>`);
 
         this._divRowBody.innerHTML = estructura.replace("$", "Comidas");
     }
@@ -223,14 +231,93 @@ class ComidaPage extends InnerPage {
         tr.appendChild(td3);
 
         let td4 = document.createElement("td");
-        td4.innerHTML = comida._precio;
+        
+        let btnVer = document.createElement("button");
+        btnVer.className = "btn btn-primary btn-circle";
+        btnVer.innerHTML = `<i class="fa fa-search"></i>`;
+        btnVer.addEventListener("click", () => this.generarEventoVerComida(comida));
+        td4.appendChild(btnVer);
+
+        let btnEditar = document.createElement("button");
+        btnEditar.className = "btn btn-warning btn-circle";
+        btnEditar.innerHTML = `<i class="fa fa-pencil"></i>`;
+        btnEditar.addEventListener("click", () => this.generarEventoEditarComida(comida));
+        td4.appendChild(btnEditar);
+
+        let btnEliminar = document.createElement("button");
+        btnEliminar.className = "btn btn-danger btn-circle";
+        btnEliminar.innerHTML = `<i class="fa fa-trash-o"></i>`;
+        btnEliminar.addEventListener("click", () => this.generarEventoEliminarComida(comida));
+        td4.appendChild(btnEliminar);
+
         tr.appendChild(td4);
 
-        let td5 = document.createElement("td");
-        td5.innerHTML = comida._tipo;
-        tr.appendChild(td5);
-
         return tr;
+    }
+
+    generarEventoVerComida(comida) {
+    	this._comidaApiClient.obtenerComida(comida._id).then((data) => {
+			GestorPageHtml.openModal(GestorPageHtml.estructuraVerComida(comida), "Ver datos Comida", "primary");
+        });
+    }
+
+    generarEventoEditarComida(comida) {
+    	this._comidaApiClient.obtenerComida(comida._id).then((data) => {
+			GestorPageHtml.openModal(GestorPageHtml.estructuraEditarComida(comida), "Edición Comida", "primary");
+
+			let btnGuardarComida = document.body.querySelector("#btnSuccessModal");
+			btnGuardarComida.addEventListener("click", () => {
+
+				let tipo = document.body.querySelector("#txtTipo").value;
+				let precio = document.body.querySelector("#txtPrecio").value;
+				let calorias = document.body.querySelector("#txtCalorias").value;
+				let existencias = document.body.querySelector("#txtExistencias").value;
+				let nombre = document.body.querySelector("#txtNombre").value;
+				let objComida = new Comida(comida._id, nombre, existencias, calorias, precio, tipo);
+
+				this._comidaApiClient.guardarComida(objComida).then((data) => {
+					this.listarComidas();
+		            GestorPageHtml.closeModal();
+		        });	
+
+			});
+
+        });
+    }
+
+    generarEventoEliminarComida(comida) {
+    	GestorPageHtml.openModal("¿Estás seguro que deseas eliminar?", "Eliminación", "danger");
+    	
+    	let btnEliminarComida = document.body.querySelector("#btnSuccessModal");
+		btnEliminarComida.addEventListener("click", () => {
+			this._comidaApiClient.eliminarComida(comida._id).then((data) => {	
+				this.listarComidas();	
+				GestorPageHtml.closeModal();
+        	});
+		});    	
+    }
+
+    generarEventoAgregarComida() {
+    	let btnAgregarComida = this._container.querySelector("#btnCrear");
+    	btnAgregarComida.addEventListener("click", () => {
+    		GestorPageHtml.openModal(GestorPageHtml.estructuraComida(),"Agregar","primary");
+    		let btnGuardarComida = document.body.querySelector("#btnSuccessModal");
+			btnGuardarComida.addEventListener("click", () => {
+
+				let tipo = document.body.querySelector("#txtTipo").value;
+				let precio = document.body.querySelector("#txtPrecio").value;
+				let calorias = document.body.querySelector("#txtCalorias").value;
+				let existencias = document.body.querySelector("#txtExistencias").value;
+				let nombre = document.body.querySelector("#txtNombre").value;
+
+				let comida = new Comida(nombre, existencias, calorias, precio, tipo);
+
+				this._comidaApiClient.crearComida(comida).then((data) => {
+					this.listarComidas();
+		            GestorPageHtml.closeModal();
+		        });				
+			});
+    	});
     }
 }
 
@@ -320,16 +407,52 @@ class UsuarioPage extends InnerPage {
             this._divRowBody.querySelector("#txtEmail").value = data._email;
             this._divRowBody.querySelector("#txtApellidos").value = data._apellidos;
             this._divRowBody.querySelector("#txtNombre").value = data._nombre;
-            this._divRowBody.querySelector("#txtUsername").value = data._username;
-            console.log(this._divRowBody.querySelector("#txtUsername").value);
+            this._divRowBody.querySelector("#txtUsername").value = data._username;            
             this.pintarPaginaCompleta();
-            console.log(this._divRowBody.querySelector("#txtUsername").value);
+            this.generarEventoBotonesPerfilUsuario();
+            this._userController._user = data;
         });
+	}
+
+	generarEventoBotonesPerfilUsuario() {
+		let btnGuardarUsuario = this._container.querySelector("#btnGuardarUsuario");
+		btnGuardarUsuario.addEventListener("click", () => {
+			this.confirmacionGuardarUsuario();
+		});
+
+		let btnEliminarUsuario = this._container.querySelector("#btnEliminarUsuario");
+		btnEliminarUsuario.addEventListener("click", () => {
+			this.confirmacionEliminarUsuario();
+		});
+	}
+
+	confirmacionGuardarUsuario() {
+		GestorPageHtml.openModal("¿Está seguro de guardar los datos?","Confirmación","danger")
+		let btnGuardarUsuario = document.body.querySelector("#btnSuccessModal");
+		btnGuardarUsuario.addEventListener("click", () => {
+			this._userController._user._email = this._divRowBody.querySelector("#txtEmail").value;
+			this._userController._user._apellidos = this._divRowBody.querySelector("#txtApellidos").value;
+			this._userController._user._nombre = this._divRowBody.querySelector("#txtNombre").value;
+			this._userController._user._username = this._divRowBody.querySelector("#txtUsername").value;
+			this._userController._user._password = "12345678";
+			this._userController.guardarDatosUsuario();
+			GestorPageHtml.closeModal();
+		});
+	}
+
+	confirmacionEliminarUsuario() {
+		GestorPageHtml.openModal("¿Está seguro que desea eliminar el usuario?","Confirmación","danger")
+		let btnEliminarUsuario = document.body.querySelector("#btnSuccessModal");
+		btnGuardarUsuario.addEventListener("click", () => {
+			//this._userController.guardarDatosUsuario();
+			GestorPageHtml.closeModal();
+		});
 	}
 }
 
 class Comida {
-	constructor(nombre, existencias, calorias, precio, tipo) {
+	constructor(id, nombre, existencias, calorias, precio, tipo) {
+		this._id = id;
 		this._nombre = nombre;
 		this._existencias = existencias;
 		this._calorias = calorias;
@@ -339,7 +462,8 @@ class Comida {
 } 
 
 class Bebida {
-	constructor(nombre, existencias, calorias, precio, esAlcoholica, grados) {
+	constructor(id, nombre, existencias, calorias, precio, esAlcoholica, grados) {
+		this._id = id;
 		this._nombre = nombre;
 		this._existencias = existencias;
 		this._calorias = calorias;

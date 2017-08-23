@@ -2,6 +2,7 @@ class UserController {
 	constructor(navigation, apiClient) {
 		this._navigation = navigation;
 		this._apiClient = apiClient;
+		this._user = null;
 		this._userApiClient = new UserApiClient(this._apiClient);
 	}
 	
@@ -38,6 +39,18 @@ class UserController {
         });
 
         return promise;
+	}
+
+	guardarDatosUsuario() {
+		this._userApiClient.guardarUsuario(this._user).then((data) => {
+            console.log(data);
+        });
+	}
+
+	eliminarUsuario(id) {
+		this._userApiClient.eliminarUsuario(id).then((data) => {
+            console.log(data);
+        });
 	}
 }
 
