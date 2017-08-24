@@ -20,6 +20,7 @@ class ComidaPage extends InnerPage {
 		this._comidaApiClient.obtenerListaComidas().then((data) => {
             this.pintarComidas(data);            
             this.generarEventoAgregarComida();
+            this.generarEventoBuscarTexto();            
         });
 	}
 
@@ -36,10 +37,14 @@ class ComidaPage extends InnerPage {
         let tbody = this._divRowBody.querySelector("tbody");
         tbody.innerHTML = "";
 
-        for (let i = 0; i < data.length; i++) {
-            let comida = data[i];
-            let row = this.getRowForComida(comida);
-            tbody.appendChild(row);
+        if(data.length > 0 ) {
+            for (let i = 0; i < data.length; i++) {
+                let comida = data[i];
+                let row = this.getRowForComida(comida);
+                tbody.appendChild(row);
+            }
+        } else {
+            this._divRowBody.querySelector("#panelBody").innerHTML = "No se encontraron resultados.";
         }
     }
 

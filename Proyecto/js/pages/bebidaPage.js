@@ -20,6 +20,7 @@ class BebidaPage extends InnerPage {
 		this._bebidaApiClient.obtenerListaBebidas().then((data) => {
             this.pintarBebidas(data);
             this.generarEventoAgregarBebida();
+            this.generarEventoBuscarTexto();
         });
 	}
 
@@ -36,10 +37,14 @@ class BebidaPage extends InnerPage {
         let tbody = this._divRowBody.querySelector("tbody");
         tbody.innerHTML = "";
 
-        for (let i = 0; i < data.length; i++) {
-            let bebida = data[i];
-            let row = this.getRowForBebida(bebida);
-            tbody.appendChild(row);
+        if(data.length > 0 ) {
+            for (let i = 0; i < data.length; i++) {
+                let bebida = data[i];
+                let row = this.getRowForBebida(bebida);
+                tbody.appendChild(row);
+            }
+        } else {
+            this._divRowBody.querySelector("#panelBody").innerHTML = "No se encontraron resultados.";
         }
     }
 
@@ -177,5 +182,5 @@ class BebidaPage extends InnerPage {
                             "inesperado, inténtelo mas tarde!");
                 });
 		});    	
-    }
+    }    
 }

@@ -25,30 +25,33 @@ class Home extends InnerPage {
 
 	cargarInformacionDeComidas() {
 		this._comidaApiClient.obtenerListaComidas().then((data) => {
-        	let totalExistencias = 0;
-        	let arrayGraficoExistencias = [];
-        	let arrayGraficoCalorias = [];
-        	for(let indice = 0; indice < data.length; indice ++) {
-        		let comida = {
-            		y: data[indice]._calorias,
-            		x: data[indice]._nombre
-            	}
-            	totalExistencias += data[indice]._existencias;
-            	arrayGraficoCalorias.push(comida);
-        	}
-            for(let indice = 0; indice < data.length; indice ++) {
-            	let valorPorcentual = parseInt(data[indice]._existencias * 100 / totalExistencias);
-            	let comida = {
-            		value: valorPorcentual,
-            		label: data[indice]._nombre
-            	}
-            	arrayGraficoExistencias.push(comida);
+            if(data.length > 0) {
+                let totalExistencias = 0;
+                let arrayGraficoExistencias = [];
+                let arrayGraficoCalorias = [];
+                for(let indice = 0; indice < data.length; indice ++) {
+                    let comida = {
+                        y: data[indice]._calorias,
+                        x: data[indice]._nombre
+                    }
+                    totalExistencias += data[indice]._existencias;
+                    arrayGraficoCalorias.push(comida);
+                }
+                for(let indice = 0; indice < data.length; indice ++) {
+                    let valorPorcentual = parseInt(data[indice]._existencias * 100 / totalExistencias);
+                    let comida = {
+                        value: valorPorcentual,
+                        label: data[indice]._nombre
+                    }
+                    arrayGraficoExistencias.push(comida);
+                }
+
+                GestorGrafico.pintarGraficoPie(arrayGraficoExistencias, "existencias");
+                GestorGrafico.pintarGraficoBarras(arrayGraficoCalorias, "calorias");
+
+                this.cargarInformacionDeBebidas();
             }
-
-            GestorGrafico.pintarGraficoPie(arrayGraficoExistencias, "existencias");
-            GestorGrafico.pintarGraficoBarras(arrayGraficoCalorias, "calorias");
-
-            this.cargarInformacionDeBebidas();
+        	
         });
 	}
 
@@ -57,6 +60,7 @@ class Home extends InnerPage {
 			let totalAlcoholicas = 0;
 			let totalNoAlcoholicas = 0;
         	let arrayGraficoBebidasAlcoholicas = [];
+            let arrayBebidasGrados = [];
 
         	for(let indice = 0; indice < data.length; indice ++) {
         		if(data[indice]._esAlcoholica) {
@@ -64,6 +68,12 @@ class Home extends InnerPage {
         		} else {
         			totalNoAlcoholicas++;
         		}
+
+                let bebida = {
+                    y: data[indice]._grados,
+                    x: data[indice]._nombre
+                }
+                arrayBebidasGrados.push(bebida);
         	}
 
         	let objAlco = {
@@ -77,7 +87,9 @@ class Home extends InnerPage {
         		value: parseInt(totalNoAlcoholicas *100 / (totalAlcoholicas + totalNoAlcoholicas))
         	}
         	arrayGraficoBebidasAlcoholicas.push(objNoAlco);
-        	GestorGrafico.pintarGraficoPie(arrayGraficoBebidasAlcoholicas, "alcoholicas");        	
+
+        	GestorGrafico.pintarGraficoPie(arrayGraficoBebidasAlcoholicas, "alcoholicas");
+            GestorGrafico.pintarGraficoBarras(arrayBebidasGrados, "grados");                   	
         });
 	}
 }

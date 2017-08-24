@@ -44,4 +44,15 @@ class InnerPage extends Page {
         	this._navigation.invocarNavegacion("#login");
         });
 	}
+
+	generarEventoBuscarTexto() {
+        let btnBuscarTexto = this._container.querySelector("#btnBuscar");
+        btnBuscarTexto.addEventListener("click", () => {
+
+            let texto = this._container.querySelector("#txtBuscar").value;
+            let table = new Table("#tableResultados");
+            table.buscarTexto(texto);
+            
+        });
+    }
 }

@@ -98,7 +98,7 @@ class GestorPageHtml {
                             <div class="site-logo clearfix">
                                 <div>
                                     <a href="#">
-                                        <img class="img-circle" src="http://3.bp.blogspot.com/-lc6m09MBc1s/T8fYrcdkZHI/AAAAAAAAACk/H10XCPJ_Xmc/s1600/chef%2Bsin%2Bfondo%2BPNG.png" >
+                                        <img class="img-circle" src="./css/images/Triangles.svg" >
                                     </a>
                                 </div>
                                 <div class="div-title">
@@ -137,16 +137,28 @@ class GestorPageHtml {
 
     static getEstructuraPanel(stringReplace) {
         let estructura =  `<!-- /.row -->
-                            <button type="button" id="btnCrear" class="btn btn-green">Añadir</button>
+                            <div>
+                                <div class="btn-panel">
+                                    <button type="button" id="btnCrear" class="btn btn-green">Añadir</button>
+                                </div>
+                                <div class="input-group custom-search-form">
+                                    <input id="txtBuscar" type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button id="btnBuscar" class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
                                 <div class="col-lg-12">
                                     <div class="panel panel-success">
                                         <div class="panel-heading">
                                             $
                                         </div>
                                         <!-- /.panel-heading -->
-                                        <div class="panel-body">
+                                        <div id="panelBody" class="panel-body">
                                             <div class="table-responsive">
-                                                <table class="table-users table table-striped table-bordered table-hover">
+                                                <table id="tableResultados" class="table-users table table-striped table-bordered table-hover">
                                                     <thead>
                                                         @
                                                     </thead>
@@ -200,6 +212,9 @@ class GestorPageHtml {
                                         <!-- /.panel-body -->
                                     </div>
                                     <!-- /.panel -->
+                                </div>
+                                <div class="col-lg-6">
+                                    
                                 </div>
                             
                             <!-- /.row --> `;
@@ -510,7 +525,7 @@ class GestorPageHtml {
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            <div id="existencias"></div>
+                                            <div id="existencias">No se encontró información.</div>
                                         </div>
                                         <!-- /.panel-body -->
                                     </div>
@@ -523,7 +538,7 @@ class GestorPageHtml {
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            <div id="calorias"></div>
+                                            <div id="calorias">No se encontró información.</div>
                                         </div>
                                         <!-- /.panel-body -->
                                     </div>
@@ -544,7 +559,7 @@ class GestorPageHtml {
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            <div id="alcoholicas"></div>
+                                            <div id="alcoholicas">No se encontró información.</div>
                                         </div>
                                         <!-- /.panel-body -->
                                     </div>
@@ -553,11 +568,11 @@ class GestorPageHtml {
                                 <div class="col-lg-6">
                                     <div class="panel panel-success">
                                         <div class="panel-heading">
-                                            Cantidad de calorias por Comida
+                                            Cantidad de grados por Bebida
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            
+                                            <div id="grados">No se encontró información.</div>
                                         </div>
                                         <!-- /.panel-body -->
                                     </div>
@@ -577,8 +592,8 @@ class GestorPageHtml {
        
                        </div>
 
-                       <div class="blockUI blockMsg blockPage" style="z-index: 1011; position: fixed; padding: 15px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(255, 255, 255); border: none; background-color: rgb(0, 0, 0); cursor: wait; border-radius: 10px; opacity: 0.5;">
-                            <img src="https://m.popkey.co/163fce/Llgbv_s-200x150.gif"></img>
+                       <div class="blockUI blockMsg blockPage" style="z-index: 1011; position: fixed; padding: 15px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(255, 255, 255); border: none; cursor: wait; border-radius: 10px; opacity: 0.5;">
+                            <img src="./css/images/Ellipsis.svg"></img>
                        </div>`;
 
         document.body.appendChild(contenedorModal);
