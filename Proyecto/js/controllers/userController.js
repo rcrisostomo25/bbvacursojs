@@ -34,12 +34,12 @@ class UserController {
 
 	crearUsuario(user) {
 		this._userApiClient.crearUsuario(user)
-			.then((data) => {				
+			.then((data) => {
 	            this._navigation.invocarNavegacion("#login");
 	            GestorPageHtml.mensajeSuccess("Usuario creado correctamente!");
 
 	        }).catch((e) => {
-	            GestorPageHtml.mensajeSuccess("Ocurrió un error inesperado, por favor intente nuevamente.");
+	            GestorPageHtml.mensajeError("Ocurrió un error inesperado, por favor intente nuevamente.");
 	        });
 	}
 
@@ -52,9 +52,16 @@ class UserController {
 	}
 
 	guardarDatosUsuario() {
-		this._userApiClient.guardarUsuario(this._user).then((data) => {
-            console.log(data);
-        });
+		this._userApiClient.guardarUsuario(this._user)
+			.then((data) => {
+				GestorPageHtml.mensajeSuccess("Usuario actualizado correctamente!");
+	            GestorPageHtml.closeModal();
+
+	        }).catch((e) => {
+	        	GestorPageHtml.closeModal();
+	            GestorPageHtml.mensajeError("No se actualizó el usuario. Ocurrió un error inesperado, " +
+	            	"por favor inténtele mas tarde.");
+	        });
 	}
 
 	eliminarUsuario(user) {
@@ -68,32 +75,5 @@ class UserController {
 	        	GestorPageHtml.closeModal();
 	            GestorPageHtml.mensajeError("Ocurrió un error inesperado, por favor inténtele mas tarde.");
 	        });
-	}
-}
-
-class User {
-	constructor(id, email, apellidos, nombre, username, password) {
-		this._id = id;
-		this._email = email;
-		this._apellidos = apellidos;
-		this._nombre = nombre;
-		this._username = username;
-		this._password = password;
-	}
-
-	quitarDeSession() {
-		localStorage.removeItem("userSession");
-	}
-
-	obtenerDeSession() {
-		let user = null;
-		if(localStorage.getItem("userSession") != null) {
-			user = JSON.parse(localStorage.getItem("userSession"));
-		}
-		return user;
-	}
-
-	colocarEnSession() {
-		localStorage.setItem("userSession", JSON.stringify(this));
 	}
 }

@@ -4,6 +4,8 @@ class ApiClient {
     }
 
     get(url, params) {
+        GestorPageHtml.openBlock();
+
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
 
@@ -14,6 +16,7 @@ class ApiClient {
 
         // Fetch anidado
         var promise = fetch(url, config).then((response) => {
+            GestorPageHtml.closeBlock();
             return response.json();
         });
 
@@ -21,6 +24,7 @@ class ApiClient {
     }
 
     post(url, data) {
+        GestorPageHtml.openBlock();
     	var headers = new Headers();
         headers.append("Content-Type", "application/json");
 
@@ -36,6 +40,7 @@ class ApiClient {
 
         // Fetch anidado
         var promise = fetch(url, config).then((response) => {
+            GestorPageHtml.closeBlock();
             if(response.status >= 200 && response.status < 300) {
                 return response.json();
             } else {
@@ -47,6 +52,7 @@ class ApiClient {
     }
 
     put(url, data) {
+        GestorPageHtml.openBlock();
     	var headers = new Headers();
         headers.append("Content-Type", "application/json");
 
@@ -62,6 +68,7 @@ class ApiClient {
 
         // Fetch anidado
         var promise = fetch(url, config).then((response) => {
+            GestorPageHtml.closeBlock();
             if(response.status >= 200 && response.status < 300) {
                 return response.json();
             } else {
@@ -74,6 +81,7 @@ class ApiClient {
     }
 
     delete(url, data) {
+        GestorPageHtml.openBlock();
     	var headers = new Headers();
         headers.append("Content-Type", "application/json");
 
@@ -88,6 +96,7 @@ class ApiClient {
         }
 
         var promise = fetch(url, config).then((response) => {
+            GestorPageHtml.closeBlock();
             if(response.status >= 200 && response.status < 300) {
                 return response.text();
             } else {

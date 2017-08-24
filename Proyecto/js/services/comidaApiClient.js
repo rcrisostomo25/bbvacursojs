@@ -37,7 +37,6 @@ class ComidaApiClient {
 
 		let promise = this._apiClient.post(completeUrl, objComida);
 		let anotherPromise = promise.then((data) => {
-			console.log(data);
 			return true;
 		});
 

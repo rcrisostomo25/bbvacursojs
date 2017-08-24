@@ -68,19 +68,19 @@ class GestorPageHtml {
                                     <form id="formCrearUsuario" accept-charset="UTF-8" role="form">
                                         <fieldset>
                                             <div class="form-group">
-                                                <input id="txtEmail" class="form-control" placeholder="E-mail" name="email" type="email" autofocus required="true" alt="E-mail">
+                                                <input id="txtEmail" class="form-control" placeholder="E-mail" name="email" type="email" autofocus required="true" alt="E-mail" minlength="4" maxlength="100">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtApellidos" class="form-control" placeholder="Apellidos" name="apellidos" type="text" value="" required="true" alt="Apellidos">
+                                                <input id="txtApellidos" class="form-control" placeholder="Apellidos" name="apellidos" type="text" value="" required="true" alt="Apellidos" minlength="4" maxlength="100">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtNombre" class="form-control" placeholder="Nombre" name="nombre" type="text" value="" required="true" alt="Nombre">
+                                                <input id="txtNombre" class="form-control" placeholder="Nombre" name="nombre" type="text" value="" required="true" alt="Nombre" minlength="4" maxlength="100">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text" value="">
+                                                <input id="txtUsername" class="form-control" placeholder="Username" name="username" type="text" value="" required="true" alt="Username" minlength="4" maxlength="100">
                                             </div>
                                             <div class="form-group">
-                                                <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="" required="true" alt="Password" minlength="4" maxlength="100">
                                             </div>                                            
                                             <a id="btnCrearCuenta" href="#crear-cuenta" class="btn btn-lg btn-green btn-block">Crear Cuenta</a>                                            
                                         </fieldset>
@@ -179,22 +179,22 @@ class GestorPageHtml {
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            <form role="form">
+                                            <form id="formEditarUsuario" role="form">
                                                 <div class="form-group">
                                                     <label>E-mail</label>
-                                                    <input id="txtEmail" class="form-control" placeholder="E-mail">
+                                                    <input id="txtEmail" class="form-control" placeholder="E-mail" required="true" alt="E-mail">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Apellidos</label>
-                                                    <input id="txtApellidos" class="form-control" placeholder="Apellidos">
+                                                    <input id="txtApellidos" class="form-control" placeholder="Apellidos" required="true" alt="Apellidos">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Nombre</label>
-                                                    <input id="txtNombre" class="form-control" placeholder="Nombre">
+                                                    <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Username</label>
-                                                    <input id="txtUsername" class="form-control" placeholder="Username">
+                                                    <input id="txtUsername" class="form-control" placeholder="Username" required="true" alt="Username">
                                                 </div>
                                                 <button id="btnGuardarUsuario" type="button" class="btn btn-success">Guardar</button>
                                                 <button id="btnEliminarUsuario" type="button" class="btn btn-danger">Eliminar</button>
@@ -253,26 +253,30 @@ class GestorPageHtml {
     }
 
     static estructuraComida() {
-        let estructura =  `<form role="form">
+        let estructura =  `<form id="formCrearComida" role="form">
                                 <div class="form-group">
-                                    <label>Tipo</label>
-                                    <input id="txtTipo" class="form-control" placeholder="Tipo">
+                                    <label>Tipo</label>                                  
+                                    <select id="cboTipo" class="form-control">
+                                        <option value="Entrante">Entrante</option>
+                                        <option value="Principal">Principal</option>
+                                        <option value="Postre">Postre</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio">
+                                    <input id="txtPrecio" class="form-control" placeholder="Precio" required="true" type="number" alt="Precio">
                                 </div>
                                 <div class="form-group">
                                     <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias">
+                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" required="true" alt="Calorias">
                                 </div>
                                 <div class="form-group">
                                     <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias">
+                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Existencias">
                                 </div>   
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre">
+                                    <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
                                 </div>                              
                             </form>`;
         return estructura; 
@@ -305,48 +309,52 @@ class GestorPageHtml {
     }
 
     static estructuraEditarComida(comida) {
-        let estructura =  `<form role="form">
+        let estructura =  `<form id="formEditarComida" role="form">
                                 <div class="form-group">
-                                    <label>Tipo</label>
-                                    <input id="txtTipo" class="form-control" placeholder="Tipo" value="${comida._tipo}">
+                                    <label>Tipo</label>                                    
+                                    <select id="cboTipo" class="form-control" value="${comida._tipo}">
+                                        <option value="Entrante">Entrante</option>
+                                        <option value="Principal">Principal</option>
+                                        <option value="Postre">Postre</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${comida._precio}">
+                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${comida._precio}" required="true" alt="Precio">
                                 </div>
                                 <div class="form-group">
                                     <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${comida._calorias}">
+                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${comida._calorias}" required="true" alt="Calorias">
                                 </div>
                                 <div class="form-group">
                                     <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${comida._existencias}">
+                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${comida._existencias}" required="true" alt="Existencias">
                                 </div>   
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${comida._nombre}">
+                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${comida._nombre}" required="true" alt="Nombre">
                                 </div>                              
                             </form>`;
         return estructura; 
     }
 
     static estructuraBebida() {
-        let estructura =  `<form role="form">
+        let estructura =  `<form id="formCrearBebida" role="form">
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre">
+                                    <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
                                 </div>
                                 <div class="form-group">
                                     <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias">
+                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Nombre">
                                 </div>
                                 <div class="form-group">
                                     <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias">
+                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" type="number" required="true" alt="Calorias">
                                 </div>
                                 <div class="form-group">
                                     <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio">
+                                    <input id="txtPrecio" class="form-control" placeholder="Precio" type="number" required="true" alt="Precio">
                                 </div>
                                 <div class="form-group">
                                     <label>Es alcohólica?</label>
@@ -357,7 +365,7 @@ class GestorPageHtml {
                                 </div>   
                                 <div class="form-group">
                                     <label>Grados</label>
-                                    <input id="txtGrados" class="form-control" placeholder="Grados">
+                                    <input id="txtGrados" class="form-control" placeholder="Grados" type="number" required="true" alt="Calorias">
                                 </div>                              
                             </form>`;
         return estructura; 
@@ -394,22 +402,22 @@ class GestorPageHtml {
     }
 
     static estructuraEditarBebida(bebida) {
-        let estructura =  `<form role="form">
+        let estructura =  `<form id="formEditarBebida" role="form">
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}">
+                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}" required="true" alt="Nombre">
                                 </div>
                                 <div class="form-group">
                                     <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}">
+                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}" type="number" required="true" alt="Existencias">
                                 </div>
                                 <div class="form-group">
                                     <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}">
+                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}" type="number" required="true" alt="Calorias">
                                 </div>
                                 <div class="form-group">
                                     <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}">
+                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}" type="number" required="true" alt="Precio">
                                 </div>
                                 <div class="form-group" value="${bebida._esAlcoholica ? 1 : 0}">
                                     <label>Es alcohólica?</label>
@@ -420,7 +428,7 @@ class GestorPageHtml {
                                 </div>   
                                 <div class="form-group">
                                     <label>Grados</label>
-                                    <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}">
+                                    <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}" type="number" required="true" alt="Grados">
                                 </div>                              
                             </form>`;
         return estructura; 
