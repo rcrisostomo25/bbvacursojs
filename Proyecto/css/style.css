@@ -148,6 +148,10 @@ a {
     vertical-align: middle;
 }
 
+.site-menu .fa {
+    font-size: 23px !important;
+}
+
 ul, ol {
     list-style: none;
     margin: 0;

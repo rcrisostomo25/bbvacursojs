@@ -109,14 +109,11 @@ class GestorPageHtml {
         return siteHeader;
     }
     
-    static getMenu() {
+    static getMenu(cadenaMenu) {
         let siteMenu = `<nav class="site-menu navbar navbar-default">
                             <div class="box-content clearfix container-fluid">
                                 <ul class="home-menu nav navbar-nav">
-                                    <li class="link"><a id="menuHome" href="#home"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                                    <li class="link"><a id="menuPage1" href="#page-1"><i class="fa fa-gear fa-fw"></i> Comidas</a></li>
-                                    <li class="link"><a id="menuPage2" href="#page-2"><i class="fa fa-beer fa-fw"></i> Bebidas</a></li>
-                                    <li class="link"><a id="menuPage3" href="#page-3"><i class="fa fa-user fa-fw"></i> Usuario</a></li>                                    
+                                    ${cadenaMenu}                                    
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">                                  
                                   <li><a id="logout" href="#logout" href="#"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
@@ -140,9 +137,9 @@ class GestorPageHtml {
 
     static getEstructuraPanel(stringReplace) {
         let estructura =  `<!-- /.row -->
-                            <button type="button" id="btnCrear" class="btn btn-primary">Añadir</button>
+                            <button type="button" id="btnCrear" class="btn btn-green">Añadir</button>
                                 <div class="col-lg-12">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-success">
                                         <div class="panel-heading">
                                             $
                                         </div>
@@ -173,7 +170,7 @@ class GestorPageHtml {
     static getEstructuraEditarUsuario() {
         let estructura =  `<!-- /.row -->
                                 <div class="col-lg-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-success">
                                         <div class="panel-heading">
                                             Perfil de Usuario
                                         </div>
@@ -196,7 +193,7 @@ class GestorPageHtml {
                                                     <label>Username</label>
                                                     <input id="txtUsername" class="form-control" placeholder="Username" required="true" alt="Username">
                                                 </div>
-                                                <button id="btnGuardarUsuario" type="button" class="btn btn-success">Guardar</button>
+                                                <button id="btnGuardarUsuario" type="button" class="btn btn-green">Guardar</button>
                                                 <button id="btnEliminarUsuario" type="button" class="btn btn-danger">Eliminar</button>
                                             </form>
                                         </div>
@@ -253,182 +250,252 @@ class GestorPageHtml {
     }
 
     static estructuraComida() {
-        let estructura =  `<form id="formCrearComida" role="form">
+        let estructura =  `<form id="formCrearComida" role="form" class="form-horizontal">
+                                <div id="message" style="display:none;"></div>                                
                                 <div class="form-group">
-                                    <label>Tipo</label>                                  
-                                    <select id="cboTipo" class="form-control">
-                                        <option value="Entrante">Entrante</option>
-                                        <option value="Principal">Principal</option>
-                                        <option value="Postre">Postre</option>
-                                    </select>
+                                    <label class="col-sm-2 control-label">Tipo</label>                                    
+                                    <div class="col-sm-10">
+                                        <select id="cboTipo" class="form-control">
+                                            <option value="Entrante">Entrante</option>
+                                            <option value="Principal">Principal</option>
+                                            <option value="Postre">Postre</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio" required="true" type="number" alt="Precio">
+                                    <label class="col-sm-2 control-label">Precio</label>                                    
+                                    <div class="col-sm-10">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" required="true" type="number" alt="Precio">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" required="true" alt="Calorias">
+                                    <label class="col-sm-2 control-label">Calorias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" required="true" alt="Calorias">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Existencias">
+                                    <label class="col-sm-2 control-label">Existencias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Existencias">
+                                    </div>    
                                 </div>   
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                    <label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                    </div>    
                                 </div>                              
                             </form>`;
         return estructura; 
     }
 
     static estructuraVerComida(comida) {
-        let estructura =  `<form role="form">
+        let estructura =  `<form role="form" class="form-horizontal">
                                 <div class="form-group">
-                                    <label>Tipo</label>
-                                    <p class="form-control-static">${comida._tipo}</p>
+                                    <label class="col-sm-2 control-label">Tipo</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${comida._tipo}</p>
+                                    </div> 
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio</label>
-                                    <p class="form-control-static">${comida._precio}</p>
+                                    <label class="col-sm-2 control-label">Precio</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${comida._precio}</p>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Calorias</label>
-                                    <p class="form-control-static">${comida._calorias}</p>
+                                    <label class="col-sm-2 control-label">Calorias</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${comida._calorias}</p>
+                                    </div> 
                                 </div>
                                 <div class="form-group">
-                                    <label>Existencias</label>
-                                    <p class="form-control-static">${comida._existencias}</p>
+                                    <label class="col-sm-2 control-label">Existencias</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${comida._existencias}</p>
+                                    </div>
                                 </div>   
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <p class="form-control-static">${comida._nombre}</p>
+                                    <label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${comida._nombre}</p>
+                                    </div>
                                 </div>                              
                             </form>`;
         return estructura; 
     }
 
     static estructuraEditarComida(comida) {
-        let estructura =  `<form id="formEditarComida" role="form">
+        let estructura =  `<form id="formEditarComida" role="form" class="form-horizontal">
+                                <div id="message" style="display:none;"></div>
                                 <div class="form-group">
-                                    <label>Tipo</label>                                    
-                                    <select id="cboTipo" class="form-control" value="${comida._tipo}">
-                                        <option value="Entrante">Entrante</option>
-                                        <option value="Principal">Principal</option>
-                                        <option value="Postre">Postre</option>
-                                    </select>
+                                    <label class="col-sm-2 control-label">Tipo</label>
+                                    <div class="col-sm-10">                                    
+                                        <select id="cboTipo" class="form-control" value="${comida._tipo}">
+                                            <option value="Entrante">Entrante</option>
+                                            <option value="Principal">Principal</option>
+                                            <option value="Postre">Postre</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${comida._precio}" required="true" alt="Precio">
+                                    <label class="col-sm-2 control-label">Precio</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" value="${comida._precio}" required="true" alt="Precio">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${comida._calorias}" required="true" alt="Calorias">
+                                    <label class="col-sm-2 control-label">Calorias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${comida._calorias}" required="true" alt="Calorias">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${comida._existencias}" required="true" alt="Existencias">
+                                    <label class="col-sm-2 control-label">Existencias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${comida._existencias}" required="true" alt="Existencias">
+                                    </div>
                                 </div>   
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${comida._nombre}" required="true" alt="Nombre">
+                                    <label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" value="${comida._nombre}" required="true" alt="Nombre">
+                                    </div>
                                 </div>                              
                             </form>`;
         return estructura; 
     }
 
     static estructuraBebida() {
-        let estructura =  `<form id="formCrearBebida" role="form">
+        let estructura =  `<form id="formCrearBebida" role="form" class="form-horizontal">
+                                <div id="message" style="display:none;"></div>
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                    <label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Nombre">
+                                    <label class="col-sm-2 control-label">Existencias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Nombre">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" type="number" required="true" alt="Calorias">
+                                    <label class="col-sm-2 control-label">Calorias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" type="number" required="true" alt="Calorias">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio" type="number" required="true" alt="Precio">
+                                    <label class="col-sm-2 control-label">Precio</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" type="number" required="true" alt="Precio">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Es alcohólica?</label>
-                                    <select id="cboEsAlcoholica" class="form-control">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
+                                    <label class="col-sm-2 control-label">Es alcohólica?</label>
+                                    <div class="col-sm-10">
+                                        <select id="cboEsAlcoholica" class="form-control">
+                                            <option value="1">SI</option>
+                                            <option value="0">NO</option>
+                                        </select>
+                                    </div>
                                 </div>   
                                 <div class="form-group">
-                                    <label>Grados</label>
-                                    <input id="txtGrados" class="form-control" placeholder="Grados" type="number" required="true" alt="Calorias">
+                                    <label class="col-sm-2 control-label">Grados</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtGrados" class="form-control" placeholder="Grados" type="number" required="true" alt="Calorias">
+                                    </div>
                                 </div>                              
                             </form>`;
         return estructura; 
     }
 
     static estructuraVerBebida(bebida) {
-        let estructura =  `<form role="form">
+        let estructura =  `<form role="form" class="form-horizontal">
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <p class="form-control-static">${bebida._nombre}</p>
+                                    <label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${bebida._nombre}</p>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Existencias</label>
-                                    <p class="form-control-static">${bebida._existencias}</p>
+                                    <label class="col-sm-2 control-label">Existencias</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${bebida._existencias}</p>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Calorias</label>
-                                    <p class="form-control-static">${bebida._calorias}</p>
+                                    <label class="col-sm-2 control-label">Calorias</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${bebida._calorias}</p>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio</label>
-                                    <p class="form-control-static">${bebida._precio}</p>
+                                    <label class="col-sm-2 control-label">Precio</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${bebida._precio}</p>
+                                    </div>
                                 </div>   
                                 <div class="form-group">
-                                    <label>Es alcoholica?</label>
-                                    <p class="form-control-static">${bebida._esAlcoholica ? 'SI' : 'NO'}</p>
+                                    <label class="col-sm-2 control-label">Es alcoholica?</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${bebida._esAlcoholica ? 'SI' : 'NO'}</p>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Grados</label>
-                                    <p class="form-control-static">${bebida._grados}</p>
+                                    <label class="col-sm-2 control-label">Grados</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">${bebida._grados}</p>
+                                    </div>
                                 </div>                              
                             </form>`;
         return estructura; 
     }
 
     static estructuraEditarBebida(bebida) {
-        let estructura =  `<form id="formEditarBebida" role="form">
+        let estructura =  `<form id="formEditarBebida" role="form" class="form-horizontal">
+                                <div id="message" style="display:none;"></div>
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}" required="true" alt="Nombre">
+                                    <label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}" required="true" alt="Nombre">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Existencias</label>
-                                    <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}" type="number" required="true" alt="Existencias">
+                                    <label class="col-sm-2 control-label">Existencias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}" type="number" required="true" alt="Existencias">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Calorias</label>
-                                    <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}" type="number" required="true" alt="Calorias">
+                                    <label class="col-sm-2 control-label">Calorias</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}" type="number" required="true" alt="Calorias">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio</label>
-                                    <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}" type="number" required="true" alt="Precio">
+                                    <label class="col-sm-2 control-label">Precio</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}" type="number" required="true" alt="Precio">
+                                    </div>
                                 </div>
                                 <div class="form-group" value="${bebida._esAlcoholica ? 1 : 0}">
-                                    <label>Es alcohólica?</label>
-                                    <select id="cboEsAlcoholica" class="form-control">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
+                                    <label class="col-sm-2 control-label">Es alcohólica?</label>
+                                    <div class="col-sm-10">
+                                        <select id="cboEsAlcoholica" class="form-control">
+                                            <option value="1">SI</option>
+                                            <option value="0">NO</option>
+                                        </select>
+                                    </div>
                                 </div>   
                                 <div class="form-group">
-                                    <label>Grados</label>
-                                    <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}" type="number" required="true" alt="Grados">
+                                    <label class="col-sm-2 control-label">Grados</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}" type="number" required="true" alt="Grados">
+                                    </div>
                                 </div>                              
                             </form>`;
         return estructura; 
@@ -437,7 +504,7 @@ class GestorPageHtml {
     static getEstructuraGraficosComida() {
         let estructura =  `<!-- /.row -->                           
                                 <div class="col-lg-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-success">
                                         <div class="panel-heading">
                                             Porcentaje de existencias por Comida
                                         </div>
@@ -450,7 +517,7 @@ class GestorPageHtml {
                                     <!-- /.panel -->
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-success">
                                         <div class="panel-heading">
                                             Cantidad de calorias por Comida
                                         </div>
@@ -471,7 +538,7 @@ class GestorPageHtml {
     static getEstructuraGraficosBebida() {
         let estructura =  `<!-- /.row -->                           
                                 <div class="col-lg-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-success">
                                         <div class="panel-heading">
                                             Cantidad de bebidas alcoholicas y No alcoholicas
                                         </div>
@@ -484,7 +551,7 @@ class GestorPageHtml {
                                     <!-- /.panel -->
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-success">
                                         <div class="panel-heading">
                                             Cantidad de calorias por Comida
                                         </div>
@@ -560,6 +627,22 @@ class GestorPageHtml {
 
         setTimeout(() => {
             document.body.removeChild(mensajeFlotante);
+        },4000);
+    }
+
+    static mensajeErrorPopup(mensaje) {
+        let mensajeFlotante = document.createElement("div");
+        mensajeFlotante.id = "mensajeFlotante";
+        mensajeFlotante.className = "alert alert-danger fade-in";
+        mensajeFlotante.innerHTML =  mensaje;
+        
+        let divMessage = document.body.querySelector("#message");
+        divMessage.setAttribute("style","display: block");
+        divMessage.appendChild(mensajeFlotante);
+
+        setTimeout(() => {
+            divMessage.removeChild(mensajeFlotante);
+            divMessage.setAttribute("style","display: none");
         },4000);
     }
 }

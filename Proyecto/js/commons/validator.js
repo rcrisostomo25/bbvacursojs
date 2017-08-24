@@ -3,7 +3,7 @@ class Validator {
 		
 	}
 
-	static validarCamposObligatorios(form) {
+	static validarCamposObligatorios(form, esPopup) {
 		let mensaje = "";
 		let inputs = document.forms[form].getElementsByTagName("input");
 		for(let indice = 0; indice < inputs.length; indice++) {
@@ -15,13 +15,17 @@ class Validator {
 
 		if(mensaje != "") {
 			mensaje = "Campos obligatorios: " + mensaje;
-			GestorPageHtml.mensajeError(mensaje);
+			if(esPopup) {
+				GestorPageHtml.mensajeErrorPopup(mensaje);
+			} else {
+				GestorPageHtml.mensajeError(mensaje);
+			}			
 			return false;
 		}
 		return true;
 	}
 
-	static validarLongitudCampos(form) {
+	static validarLongitudCampos(form, esPopup) {
 		let mensaje = "";
 		let inputs = document.forms[form].getElementsByTagName("input");
 		for(let indice = 0; indice < inputs.length; indice++) {
@@ -38,7 +42,11 @@ class Validator {
 		}
 
 		if(mensaje != "") {
-			GestorPageHtml.mensajeError(mensaje);
+			if(esPopup) {
+				GestorPageHtml.mensajeErrorPopup(mensaje);
+			} else {
+				GestorPageHtml.mensajeError(mensaje);
+			}
 			return false;
 		}
 		return true;

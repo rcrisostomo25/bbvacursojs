@@ -8,6 +8,7 @@ class Page {
         this._divRowBody = null;
 
         this._navigation = null;
+        this._menu = null;
 	}
 }
 

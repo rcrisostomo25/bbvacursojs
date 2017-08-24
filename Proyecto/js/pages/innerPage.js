@@ -13,7 +13,7 @@ class InnerPage extends Page {
 
 	pintarMenu() {
 		let divMenu = document.createElement("div");
-		divMenu.innerHTML = GestorPageHtml.getMenu();
+		divMenu.innerHTML = this._menu.getMenu();
         this._container.appendChild(divMenu);
     }
 
@@ -32,18 +32,12 @@ class InnerPage extends Page {
 	}
 
 	generarEventoLinkMenu() {
-		let menuHome = this._container.querySelector("#menuHome");
-        menuHome.addEventListener("click", () => this._navigation.invocarNavegacion("#home"));
-
-        let menuPage1 = this._container.querySelector("#menuPage1");
-        menuPage1.addEventListener("click", () => this._navigation.invocarNavegacion("#comida"));
-
-        let menuPage2 = this._container.querySelector("#menuPage2");
-        menuPage2.addEventListener("click", () => this._navigation.invocarNavegacion("#bebida"));
-
-        let menuPage3 = this._container.querySelector("#menuPage3");
-        menuPage3.addEventListener("click", () => this._navigation.invocarNavegacion("#usuario"));
-
+		for(let indiceMenu=0; indiceMenu < this._menu._menuItems.length; indiceMenu++ ) {
+			let menuItem = this._container.querySelector("#" + this._menu._menuItems[indiceMenu]._id);
+       		menuItem.addEventListener("click", () => 
+       			this._navigation.invocarNavegacion(this._menu._menuItems[indiceMenu]._url));	
+		}
+		
         let logout = this._container.querySelector("#logout");
         logout.addEventListener("click", () => {
         	localStorage.removeItem("userSession");

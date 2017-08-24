@@ -28,8 +28,8 @@ class CrearCuenta extends Page {
 	}
 
 	crearUsuario() {
-		if(Validator.validarCamposObligatorios("formCrearUsuario") && 
-				Validator.validarLongitudCampos("formCrearUsuario")) {
+		if(Validator.validarCamposObligatorios("formCrearUsuario", false) && 
+				Validator.validarLongitudCampos("formCrearUsuario", false)) {
 			let user = new User(null, txtEmail, txtApellidos, txtNombre, txtUsername, txtPassword);
 			this._userController.crearUsuario(user);
 		}

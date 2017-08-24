@@ -2,7 +2,9 @@ class BebidaPage extends InnerPage {
 	constructor(container, apiClient) {
 		super("Bebidas","#bebida",container);
 		this._apiClient = apiClient;
-		this._bebidaApiClient = new BebidaApiClient(this._apiClient);	
+		this._bebidaApiClient = new BebidaApiClient(this._apiClient);
+        this._isMenu = true;
+        this._icon = "fa-beer";	
 	}
 
 	pintarContenido() {
@@ -95,7 +97,7 @@ class BebidaPage extends InnerPage {
 				let esAlcoholica = document.body.querySelector("#cboEsAlcoholica").value == 1 ? true : false;
 				let grados = document.body.querySelector("#txtGrados").value;
 
-                if(Validator.validarCamposObligatorios("formCrearBebida")) {
+                if(Validator.validarCamposObligatorios("formCrearBebida", true)) {
                     let bebida = new Bebida(null, nombre, existencias, calorias, precio, esAlcoholica, grados);
 
                     this._bebidaApiClient.crearBebida(bebida)
@@ -137,13 +139,15 @@ class BebidaPage extends InnerPage {
 				let esAlcoholica = document.body.querySelector("#cboEsAlcoholica").value == 1 ? true : false;
 				let grados = document.body.querySelector("#txtGrados").value;
 				
-                if(Validator.validarCamposObligatorios("formEditarBebida")) {
+                if(Validator.validarCamposObligatorios("formEditarBebida", true)) {
                     let objBebida = new Bebida(bebida._id, nombre, existencias, calorias, precio, esAlcoholica, grados);
 
                     this._bebidaApiClient.guardarBebida(objBebida)
                         .then((data) => {
                             this.listarBebidas();
                             GestorPageHtml.closeModal();
+                            GestorPageHtml.mensajeSuccess("Bebida actualizada correctamente!");
+
                         }).catch((e) => {
                             GestorPageHtml.closeModal();
                             GestorPageHtml.mensajeError("No se actualizó la bebida. Ocurrió un error " +
@@ -165,6 +169,8 @@ class BebidaPage extends InnerPage {
                 .then((data) => {
     				this.listarBebidas();	
     				GestorPageHtml.closeModal();
+                    GestorPageHtml.mensajeSuccess("Bebida eliminada correctamente!");
+
             	}).catch((e) => {
                     GestorPageHtml.closeModal();
                     GestorPageHtml.mensajeError("No se eliminó la bebida. Ocurrió un error " +

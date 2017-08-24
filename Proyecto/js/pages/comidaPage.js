@@ -3,7 +3,8 @@ class ComidaPage extends InnerPage {
 		super("Comidas","#comida",container);
 		this._apiClient = apiClient;
 		this._comidaApiClient = new ComidaApiClient(this._apiClient);
-		this._bebidaApiClient = new BebidaApiClient(this._apiClient);
+        this._isMenu = true;	
+        this._icon = "fa-gear"; 	
 	}
 
 	pintarContenido() {
@@ -105,13 +106,15 @@ class ComidaPage extends InnerPage {
 				let existencias = document.body.querySelector("#txtExistencias").value;
 				let nombre = document.body.querySelector("#txtNombre").value;
 
-                if(Validator.validarCamposObligatorios("formEditarComida")) {
+                if(Validator.validarCamposObligatorios("formEditarComida", true)) {
     				let objComida = new Comida(comida._id, nombre, existencias, calorias, precio, tipo);
 
     				this._comidaApiClient.guardarComida(objComida)
                         .then((data) => {
         					this.listarComidas();
         		            GestorPageHtml.closeModal();
+                            GestorPageHtml.mensajeSuccess("Comida actualizada correctamente!");
+
         		        }).catch((e) => {
                             GestorPageHtml.closeModal();
                             GestorPageHtml.mensajeError("No se actualizó la comida. Ocurrió un error " +
@@ -133,6 +136,8 @@ class ComidaPage extends InnerPage {
                 .then((data) => {	
     				this.listarComidas();	
     				GestorPageHtml.closeModal();
+                    GestorPageHtml.mensajeSuccess("Comida eliminada correctamente!");
+
             	}).catch((e) => {
                     GestorPageHtml.closeModal();
                     GestorPageHtml.mensajeError("No se eliminó la comida. Ocurrió un error " +
@@ -154,13 +159,15 @@ class ComidaPage extends InnerPage {
 				let existencias = document.body.querySelector("#txtExistencias").value;
 				let nombre = document.body.querySelector("#txtNombre").value;
 
-                if(Validator.validarCamposObligatorios("formCrearComida")) {
+                if(Validator.validarCamposObligatorios("formCrearComida", true)) {
                     let comida = new Comida(null, nombre, existencias, calorias, precio, tipo);
 
                     this._comidaApiClient.crearComida(comida)
                         .then((data) => {
                             this.listarComidas();
                             GestorPageHtml.closeModal();
+                            GestorPageHtml.mensajeSuccess("Comida registrada correctamente!");
+
                         }).catch((e) => {
                             GestorPageHtml.closeModal();
                             GestorPageHtml.mensajeError("No se registró la comida. Ocurrió un error " +

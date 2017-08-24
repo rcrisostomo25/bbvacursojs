@@ -3,7 +3,9 @@ class Home extends InnerPage {
 		super("Home","#home",container);
 		this._apiClient = apiClient;
 		this._comidaApiClient = new ComidaApiClient(this._apiClient);
-		this._bebidaApiClient = new BebidaApiClient(this._apiClient);	
+		this._bebidaApiClient = new BebidaApiClient(this._apiClient);
+        this._isMenu = true;	
+        this._icon = "fa-home"; 
 	}
 
 	pintarContenido() {
@@ -65,17 +67,17 @@ class Home extends InnerPage {
         	}
 
         	let objAlco = {
-        		x: "Alcoholicas",
-        		y: totalAlcoholicas
+        		label: "Alcoholicas",
+        		value: parseInt(totalAlcoholicas *100 / (totalAlcoholicas + totalNoAlcoholicas))
         	}
         	arrayGraficoBebidasAlcoholicas.push(objAlco);
 
         	let objNoAlco = {
-        		x: "No Alcoholicas",
-        		y: totalNoAlcoholicas
+        		label: "No Alcoholicas",
+        		value: parseInt(totalNoAlcoholicas *100 / (totalAlcoholicas + totalNoAlcoholicas))
         	}
         	arrayGraficoBebidasAlcoholicas.push(objNoAlco);
-        	GestorGrafico.pintarGraficoBarras(arrayGraficoBebidasAlcoholicas, "alcoholicas");        	
+        	GestorGrafico.pintarGraficoPie(arrayGraficoBebidasAlcoholicas, "alcoholicas");        	
         });
 	}
 }

@@ -16,5 +16,6 @@ class Navigation {
 	agregarPaginaNavegacion(page) {
 		this._pages.push(page);
 		page._navigation = this;
+		page._menu = new Menu(this);
 	}
 }
