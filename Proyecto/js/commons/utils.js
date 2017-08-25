@@ -83,8 +83,7 @@ class GestorPageHtml {
                                                 <input id="txtPassword" class="form-control" placeholder="Password" name="password" type="password" value="" required="true" alt="Password" minlength="4" maxlength="100">
                                             </div>                                            
                                             <a id="btnCrearCuenta" href="#crear-cuenta" class="btn btn-lg btn-green btn-block">Crear Cuenta</a>                                            
-                                        </fieldset>
-                                        
+                                        </fieldset>                                        
                                     </form>
                                 </div>
                             </div>

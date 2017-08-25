@@ -28,7 +28,8 @@ class UserController {
 	            this._navigation.invocarNavegacion("#home");
 
 	        }).catch((e) => {
-	            GestorPageHtml.mensajeError("Usuario o contraseña incorrecto!");
+	        	let mensajeError = new MensajeException(e);
+	            GestorPageHtml.mensajeError(mensajeError.getMensaje());
 	        });
 	}
 
@@ -39,7 +40,8 @@ class UserController {
 	            GestorPageHtml.mensajeSuccess("Usuario creado correctamente!");
 
 	        }).catch((e) => {
-	            GestorPageHtml.mensajeError("Ocurrió un error inesperado, por favor intente nuevamente.");
+	        	let mensajeError = new MensajeException(e);
+	            GestorPageHtml.mensajeError(mensajeError.getMensaje());
 	        });
 	}
 
@@ -59,8 +61,8 @@ class UserController {
 
 	        }).catch((e) => {
 	        	GestorPageHtml.closeModal();
-	            GestorPageHtml.mensajeError("No se actualizó el usuario. Ocurrió un error inesperado, " +
-	            	"por favor inténtele mas tarde.");
+	            let mensajeError = new MensajeException(e);
+                GestorPageHtml.mensajeError(mensajeError.getMensaje());
 	        });
 	}
 
@@ -69,11 +71,13 @@ class UserController {
 			.then((data) => {
 				this._user.quitarDeSession();
 	            GestorPageHtml.closeModal();
+	            GestorPageHtml.mensajeSuccess("Usuario eliminado correctamente!");
 	            this._navigation.invocarNavegacion("#login");
 
 	        }).catch((e) => {
 	        	GestorPageHtml.closeModal();
-	            GestorPageHtml.mensajeError("Ocurrió un error inesperado, por favor inténtele mas tarde.");
+	        	let mensajeError = new MensajeException(e);
+	            GestorPageHtml.mensajeError(mensajeError.getMensaje());
 	        });
 	}
 }

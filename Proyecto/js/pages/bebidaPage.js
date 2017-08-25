@@ -112,8 +112,8 @@ class BebidaPage extends InnerPage {
                             GestorPageHtml.closeModal();
                         }).catch((e) => {
                             GestorPageHtml.closeModal();
-                            GestorPageHtml.mensajeError("No se registró la bebida. Ocurrió un error " +
-                                    "inesperado, inténtelo mas tarde!");
+                            let mensajeError = new MensajeException(e);
+                            GestorPageHtml.mensajeError(mensajeError.getMensaje());
                         });
                 }
 							
@@ -129,9 +129,9 @@ class BebidaPage extends InnerPage {
                 table._cuerpoRow = GestorPageHtml.estructuraVerBebida_row(data);
                 table.agregarRowDetalle(i);
 
-            }).catch((e) => {      
-                GestorPageHtml.mensajeError("No se puede visualizar el detalle de la bebida. Ocurrió un error " +
-                        "inesperado, inténtelo mas tarde!");
+            }).catch((e) => {
+                let mensajeError = new MensajeException(e);
+                GestorPageHtml.mensajeError(mensajeError.getMensaje());
             });
     }
 
@@ -161,8 +161,8 @@ class BebidaPage extends InnerPage {
 
                         }).catch((e) => {
                             GestorPageHtml.closeModal();
-                            GestorPageHtml.mensajeError("No se actualizó la bebida. Ocurrió un error " +
-                                    "inesperado, inténtelo mas tarde!");
+                            let mensajeError = new MensajeException(e);
+                            GestorPageHtml.mensajeError(mensajeError.getMensaje());
                         });
                 }					
 
@@ -184,8 +184,9 @@ class BebidaPage extends InnerPage {
 
             	}).catch((e) => {
                     GestorPageHtml.closeModal();
-                    GestorPageHtml.mensajeError("No se eliminó la bebida. Ocurrió un error " +
-                            "inesperado, inténtelo mas tarde!");
+                    let mensajeError = new MensajeException(e);
+                    GestorPageHtml.mensajeError(mensajeError.getMensaje());
+                    
                 });
 		});    	
     }    

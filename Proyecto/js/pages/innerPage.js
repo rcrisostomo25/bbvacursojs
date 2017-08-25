@@ -45,7 +45,8 @@ class InnerPage extends Page {
         	let btnSalir = document.body.querySelector("#btnSuccessModal");
 			btnSalir.addEventListener("click", () => {
 				localStorage.removeItem("userSession");
-        		this._navigation.invocarNavegacion("#login");	
+        		this._navigation.invocarNavegacion("#login");
+        		GestorPageHtml.closeModal();	
 			});
 
         });

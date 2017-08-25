@@ -15,9 +15,20 @@ class ApiClient {
         };
 
         // Fetch anidado
-        var promise = fetch(url, config).then((response) => {
-            GestorPageHtml.closeBlock();
-            return response.json();
+        let promise = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                     GestorPageHtml.closeBlock();
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((e) => {
+                GestorPageHtml.closeBlock();
+                reject(e);
+            });
         });
 
         return promise;
@@ -38,14 +49,20 @@ class ApiClient {
             config.body = jsonData;
         }
 
-        // Fetch anidado
-        var promise = fetch(url, config).then((response) => {
-            GestorPageHtml.closeBlock();
-            if(response.status >= 200 && response.status < 300) {
-                return response.json();
-            } else {
-                return Promise.reject(response.text());
-            }
+        let promise = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {                
+                response.json().then((data) => {
+                    GestorPageHtml.closeBlock();                     
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((e) => {
+                GestorPageHtml.closeBlock();
+                reject(e);
+            });
         });
 
         return promise;
@@ -67,13 +84,20 @@ class ApiClient {
         }
 
         // Fetch anidado
-        var promise = fetch(url, config).then((response) => {
-            GestorPageHtml.closeBlock();
-            if(response.status >= 200 && response.status < 300) {
-                return response.json();
-            } else {
-                return Promise.reject(response.text());
-            }
+        let promise = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                     GestorPageHtml.closeBlock();
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((e) => {
+                GestorPageHtml.closeBlock();
+                reject(e);
+            });
         });
 
         return promise;
@@ -95,13 +119,20 @@ class ApiClient {
             config.body = jsonData;
         }
 
-        var promise = fetch(url, config).then((response) => {
-            GestorPageHtml.closeBlock();
-            if(response.status >= 200 && response.status < 300) {
-                return response.text();
-            } else {
-                return Promise.reject(response.text());
-            }
+        let promise = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                     GestorPageHtml.closeBlock();
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((e) => {
+                GestorPageHtml.closeBlock();
+                reject(e);
+            });
         });
 
         return promise;

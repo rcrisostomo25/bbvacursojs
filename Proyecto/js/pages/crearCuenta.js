@@ -30,6 +30,13 @@ class CrearCuenta extends Page {
 	crearUsuario() {
 		if(Validator.validarCamposObligatorios("formCrearUsuario", false) && 
 				Validator.validarLongitudCampos("formCrearUsuario", false)) {
+
+			let txtEmail = this._container.querySelector("#txtEmail").value;
+			let txtApellidos = this._container.querySelector("#txtApellidos").value;
+			let txtNombre = this._container.querySelector("#txtNombre").value;
+			let txtUsername = this._container.querySelector("#txtUsername").value;
+			let txtPassword = this._container.querySelector("#txtPassword").value;
+
 			let user = new User(null, txtEmail, txtApellidos, txtNombre, txtUsername, txtPassword);
 			this._userController.crearUsuario(user);
 		}

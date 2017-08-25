@@ -98,8 +98,8 @@ class ComidaPage extends InnerPage {
                 table.agregarRowDetalle(i);
 
             }).catch((e) => {            
-                GestorPageHtml.mensajeError("No se puede visualizar el detalle de la comida. Ocurrió un error " +
-                        "inesperado, inténtelo mas tarde!");
+                let mensajeError = new MensajeException(e);
+                GestorPageHtml.mensajeError(mensajeError.getMensaje());
             });
     }
 
@@ -128,8 +128,8 @@ class ComidaPage extends InnerPage {
 
         		        }).catch((e) => {
                             GestorPageHtml.closeModal();
-                            GestorPageHtml.mensajeError("No se actualizó la comida. Ocurrió un error " +
-                                    "inesperado, inténtelo mas tarde!");
+                            let mensajeError = new MensajeException(e);
+                            GestorPageHtml.mensajeError(mensajeError.getMensaje());
                         });
                 }
 
@@ -151,8 +151,8 @@ class ComidaPage extends InnerPage {
 
             	}).catch((e) => {
                     GestorPageHtml.closeModal();
-                    GestorPageHtml.mensajeError("No se eliminó la comida. Ocurrió un error " +
-                            "inesperado, inténtelo mas tarde!");
+                    let mensajeError = new MensajeException(e);
+                    GestorPageHtml.mensajeError(mensajeError.getMensaje());
                 });
 		});    	
     }
@@ -182,8 +182,8 @@ class ComidaPage extends InnerPage {
 
                         }).catch((e) => {
                             GestorPageHtml.closeModal();
-                            GestorPageHtml.mensajeError("No se registró la comida. Ocurrió un error " +
-                                    "inesperado, inténtelo mas tarde!");
+                            let mensajeError = new MensajeException(e);
+                            GestorPageHtml.mensajeError(mensajeError.getMensaje());
                         });
                 }							
 			});
