@@ -56,6 +56,7 @@ class UserController {
 	guardarDatosUsuario() {
 		this._userApiClient.guardarUsuario(this._user)
 			.then((data) => {
+				localStorage.setItem("userSession", this._user);
 				GestorPageHtml.mensajeSuccess("Usuario actualizado correctamente!");
 	            GestorPageHtml.closeModal();
 

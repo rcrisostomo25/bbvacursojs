@@ -20,7 +20,7 @@ class Home extends InnerPage {
 
         this.pintarPaginaCompleta();
         this.cargarInformacionDeComidas();
-          
+        this.cargarInformacionDeBebidas();
 	}
 
 	cargarInformacionDeComidas() {
@@ -47,11 +47,8 @@ class Home extends InnerPage {
                 }
 
                 GestorGrafico.pintarGraficoPie(arrayGraficoExistencias, "existencias");
-                GestorGrafico.pintarGraficoBarras(arrayGraficoCalorias, "calorias");
-
-                this.cargarInformacionDeBebidas();
-            }
-        	
+                GestorGrafico.pintarGraficoBarras(arrayGraficoCalorias, "calorias");           
+            }        	
         });
 	}
 
