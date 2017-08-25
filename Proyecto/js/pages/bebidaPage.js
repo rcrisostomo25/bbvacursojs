@@ -102,7 +102,8 @@ class BebidaPage extends InnerPage {
 				let esAlcoholica = document.body.querySelector("#cboEsAlcoholica").value == 1 ? true : false;
 				let grados = document.body.querySelector("#txtGrados").value;
 
-                if(Validator.validarCamposObligatorios("formCrearBebida", true)) {
+                if(Validator.validarCamposObligatorios("formCrearBebida", true) && 
+                        Validator.validarLongitudCampos("formCrearBebida", true)) {
                     let bebida = new Bebida(null, nombre, existencias, calorias, precio, esAlcoholica, grados);
 
                     this._bebidaApiClient.crearBebida(bebida)
@@ -148,7 +149,8 @@ class BebidaPage extends InnerPage {
 				let esAlcoholica = document.body.querySelector("#cboEsAlcoholica").value == 1 ? true : false;
 				let grados = document.body.querySelector("#txtGrados").value;
 				
-                if(Validator.validarCamposObligatorios("formEditarBebida", true)) {
+                if(Validator.validarCamposObligatorios("formEditarBebida", true) && 
+                        Validator.validarLongitudCampos("formEditarBebida", true)) {
                     let objBebida = new Bebida(bebida._id, nombre, existencias, calorias, precio, esAlcoholica, grados);
 
                     this._bebidaApiClient.guardarBebida(objBebida)

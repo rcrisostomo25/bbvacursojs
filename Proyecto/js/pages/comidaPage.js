@@ -116,7 +116,8 @@ class ComidaPage extends InnerPage {
 				let existencias = document.body.querySelector("#txtExistencias").value;
 				let nombre = document.body.querySelector("#txtNombre").value;
 
-                if(Validator.validarCamposObligatorios("formEditarComida", true)) {
+                if(Validator.validarCamposObligatorios("formEditarComida", true) && 
+                        Validator.validarLongitudCampos("formEditarComida", true)) {
     				let objComida = new Comida(comida._id, nombre, existencias, calorias, precio, tipo);
 
     				this._comidaApiClient.guardarComida(objComida)
@@ -169,7 +170,8 @@ class ComidaPage extends InnerPage {
 				let existencias = document.body.querySelector("#txtExistencias").value;
 				let nombre = document.body.querySelector("#txtNombre").value;
 
-                if(Validator.validarCamposObligatorios("formCrearComida", true)) {
+                if(Validator.validarCamposObligatorios("formCrearComida", true) && 
+                        Validator.validarLongitudCampos("formCrearComida", true)) {
                     let comida = new Comida(null, nombre, existencias, calorias, precio, tipo);
 
                     this._comidaApiClient.crearComida(comida)

@@ -40,7 +40,8 @@ class UsuarioPage extends InnerPage {
 		let btnGuardarUsuario = document.body.querySelector("#btnSuccessModal");
 		btnGuardarUsuario.addEventListener("click", () => {
 
-			if(Validator.validarCamposObligatorios("formEditarUsuario", false)) {
+			if(Validator.validarCamposObligatorios("formEditarUsuario", false) && 
+                        Validator.validarLongitudCampos("formEditarUsuario", false)) {
 				this._userController._user._email = this._divRowBody.querySelector("#txtEmail").value;
 				this._userController._user._apellidos = this._divRowBody.querySelector("#txtApellidos").value;
 				this._userController._user._nombre = this._divRowBody.querySelector("#txtNombre").value;

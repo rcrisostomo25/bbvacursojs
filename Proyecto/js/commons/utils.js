@@ -191,19 +191,19 @@ class GestorPageHtml {
                                             <form id="formEditarUsuario" role="form">
                                                 <div class="form-group">
                                                     <label>E-mail</label>
-                                                    <input id="txtEmail" class="form-control" placeholder="E-mail" required="true" alt="E-mail">
+                                                    <input id="txtEmail" class="form-control" placeholder="E-mail" type="text" minlength="4" maxlength="100" required="true" alt="E-mail">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Apellidos</label>
-                                                    <input id="txtApellidos" class="form-control" placeholder="Apellidos" required="true" alt="Apellidos">
+                                                    <input id="txtApellidos" class="form-control" placeholder="Apellidos" type="text" minlength="4" maxlength="100" required="true" alt="Apellidos">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Nombre</label>
-                                                    <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                                    <input id="txtNombre" class="form-control" placeholder="Nombre" type="text" minlength="4" maxlength="100" required="true" alt="Nombre">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Username</label>
-                                                    <input id="txtUsername" class="form-control" placeholder="Username" required="true" alt="Username">
+                                                    <input id="txtUsername" class="form-control" placeholder="Username" type="text" minlength="4" maxlength="100" required="true" alt="Username">
                                                 </div>
                                                 <button id="btnGuardarUsuario" type="button" class="btn btn-green">Guardar</button>
                                                 <button id="btnEliminarUsuario" type="button" class="btn btn-danger">Eliminar</button>
@@ -280,25 +280,25 @@ class GestorPageHtml {
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Precio</label>                                    
                                     <div class="col-sm-10">
-                                        <input id="txtPrecio" class="form-control" placeholder="Precio" required="true" type="number" alt="Precio">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" required="true" min="0" max="10000" type="number" alt="Precio">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Calorias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" required="true" alt="Calorias">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" type="number" min="0" max="5000" required="true" alt="Calorias">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Existencias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Existencias">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" min="0" max="1000" required="true" alt="Existencias">
                                     </div>    
                                 </div>   
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" type="text" minlength="4" maxlength="100" required="true" alt="Nombre">
                                     </div>    
                                 </div>                              
                             </form>`;
@@ -377,25 +377,25 @@ class GestorPageHtml {
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Precio</label>
                                     <div class="col-sm-10">
-                                        <input id="txtPrecio" class="form-control" placeholder="Precio" value="${comida._precio}" required="true" alt="Precio">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" value="${comida._precio}" type="number" min="0" max="10000" required="true" alt="Precio">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Calorias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${comida._calorias}" required="true" alt="Calorias">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${comida._calorias}" type="number" min="0" max="5000" required="true" alt="Calorias">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Existencias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${comida._existencias}" required="true" alt="Existencias">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${comida._existencias}" type="number" min="0" max="1000" required="true" alt="Existencias">
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input id="txtNombre" class="form-control" placeholder="Nombre" value="${comida._nombre}" required="true" alt="Nombre">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" value="${comida._nombre}" type="text" minlength="4" maxlength="100" required="true" alt="Nombre">
                                     </div>
                                 </div>                              
                             </form>`;
@@ -408,25 +408,25 @@ class GestorPageHtml {
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" alt="Nombre">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" required="true" type="text" minlength="4" maxlength="100" alt="Nombre">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Existencias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" required="true" alt="Nombre">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" type="number" min="0" max="1000" required="true" alt="Nombre">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Calorias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" type="number" required="true" alt="Calorias">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" type="number" min="0" max="5000" required="true" alt="Calorias">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Precio</label>
                                     <div class="col-sm-10">
-                                        <input id="txtPrecio" class="form-control" placeholder="Precio" type="number" required="true" alt="Precio">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" type="number" min="0" max="10000" required="true" alt="Precio">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -441,7 +441,7 @@ class GestorPageHtml {
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Grados</label>
                                     <div class="col-sm-10">
-                                        <input id="txtGrados" class="form-control" placeholder="Grados" type="number" required="true" alt="Calorias">
+                                        <input id="txtGrados" class="form-control" placeholder="Grados" type="number" min="0" max="100" required="true" alt="Calorias">
                                     </div>
                                 </div>                              
                             </form>`;
@@ -517,25 +517,25 @@ class GestorPageHtml {
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}" required="true" alt="Nombre">
+                                        <input id="txtNombre" class="form-control" placeholder="Nombre" value="${bebida._nombre}" type="text" minlength="4" maxlength="100" required="true" alt="Nombre">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Existencias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}" type="number" required="true" alt="Existencias">
+                                        <input id="txtExistencias" class="form-control" placeholder="Existencias" value="${bebida._existencias}" type="number" min="0" max="1000" required="true" alt="Existencias">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Calorias</label>
                                     <div class="col-sm-10">
-                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}" type="number" required="true" alt="Calorias">
+                                        <input id="txtCalorias" class="form-control" placeholder="Calorias" value="${bebida._calorias}" type="number" min="0" max="5000" required="true" alt="Calorias">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Precio</label>
                                     <div class="col-sm-10">
-                                        <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}" type="number" required="true" alt="Precio">
+                                        <input id="txtPrecio" class="form-control" placeholder="Precio" value="${bebida._precio}" type="number" min="0" max="10000" required="true" alt="Precio">
                                     </div>
                                 </div>
                                 <div class="form-group" value="${bebida._esAlcoholica ? 1 : 0}">
@@ -550,7 +550,7 @@ class GestorPageHtml {
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Grados</label>
                                     <div class="col-sm-10">
-                                        <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}" type="number" required="true" alt="Grados">
+                                        <input id="txtGrados" class="form-control" placeholder="Grados" value="${bebida._grados}" type="number" min="0" max="100" required="true" alt="Grados">
                                     </div>
                                 </div>                              
                             </form>`;
