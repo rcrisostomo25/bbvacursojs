@@ -50,7 +50,7 @@ class BebidaApiClient {
 
 		let promise = this._apiClient.get(completeUrl, null);
 		let anotherPromise = promise.then((data) => {
-			let bebida = new Bebida(data._id, data.nombre, data.exitencias, 
+			let bebida = new Bebida(data._id, data.nombre, data.existencias, 
 					data.calorias, data.precio, data.esAlcoholica, data.grados);
 			return bebida;
 		});

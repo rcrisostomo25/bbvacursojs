@@ -3,6 +3,9 @@ class Table {
 		this._id = id;
 		this._rows = [];
 		this._trs = null;
+		this._rowObject = null;
+		this._index = null;
+		this._cuerpoRow = null;
 		this.init();
 	}
 
@@ -30,4 +33,31 @@ class Table {
             } 
         }
 	}
+
+	agregarRowDetalle(index) {
+		let table = document.body.querySelector(this._id);
+
+		let divDetalle = table.querySelector("#divDetalle");
+		if(divDetalle != null && divDetalle != undefined) {
+			table.querySelector("tbody").removeChild(divDetalle);
+		}
+
+		let tr = document.createElement("tr");
+		tr.id = "divDetalle";
+
+        let td1 = document.createElement("td");
+        td1.setAttribute("colspan","4");
+        td1.innerHTML = this._cuerpoRow;
+
+        tr.className = "warning";
+        tr.appendChild(td1);
+
+        let tbody = table.querySelector("tbody");
+    	tbody.insertBefore(tr, tbody.childNodes[index]);
+
+    	let btnClose = tbody.querySelector("#close");
+    	btnClose.addEventListener("click", () => {
+    		tbody.removeChild(tr);
+    	});
+	}	
 }

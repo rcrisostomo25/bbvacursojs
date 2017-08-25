@@ -40,7 +40,7 @@ class BebidaPage extends InnerPage {
         if(data.length > 0 ) {
             for (let i = 0; i < data.length; i++) {
                 let bebida = data[i];
-                let row = this.getRowForBebida(bebida);
+                let row = this.getRowForBebida(bebida, i+1);
                 tbody.appendChild(row);
             }
         } else {
@@ -48,7 +48,7 @@ class BebidaPage extends InnerPage {
         }
     }
 
-    getRowForBebida(bebida) {
+    getRowForBebida(bebida, i) {
         let tr = document.createElement("tr");
 
         let td1 = document.createElement("td");
@@ -68,7 +68,7 @@ class BebidaPage extends InnerPage {
         let btnVer = document.createElement("button");
         btnVer.className = "btn btn-primary btn-circle";
         btnVer.innerHTML = `<i class="fa fa-search"></i>`;
-        btnVer.addEventListener("click", () => this.generarEventoVerBebida(bebida));
+        btnVer.addEventListener("click", () => this.generarEventoVerBebida(bebida, i));
         td4.appendChild(btnVer);
 
         let btnEditar = document.createElement("button");
@@ -120,10 +120,14 @@ class BebidaPage extends InnerPage {
     	});
     }
 
-    generarEventoVerBebida(bebida) {
+    generarEventoVerBebida(bebida, i) {
     	this._bebidaApiClient.obtenerBebida(bebida._id)
             .then((data) => {
-    			GestorPageHtml.openModal(GestorPageHtml.estructuraVerBebida(bebida), "Ver datos Bebida", "primary");
+    			//GestorPageHtml.openModal(GestorPageHtml.estructuraVerBebida(bebida), "Ver datos Bebida", "primary");
+                let table = new Table("#tableResultados");
+                table._cuerpoRow = GestorPageHtml.estructuraVerBebida_row(data);
+                table.agregarRowDetalle(i);
+
             }).catch((e) => {      
                 GestorPageHtml.mensajeError("No se puede visualizar el detalle de la bebida. Ocurrió un error " +
                         "inesperado, inténtelo mas tarde!");

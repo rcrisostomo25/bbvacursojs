@@ -157,8 +157,8 @@ class GestorPageHtml {
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div id="panelBody" class="panel-body">
-                                            <div class="table-responsive">
-                                                <table id="tableResultados" class="table-users table table-striped table-bordered table-hover">
+                                            <div class="table-responsive table-bordered">
+                                                <table id="tableResultados" class="table-users table table-hover ">
                                                     <thead>
                                                         @
                                                     </thead>
@@ -341,6 +341,26 @@ class GestorPageHtml {
         return estructura; 
     }
 
+    static estructuraVerComida_row(comida) {
+        let estructura =  `<div style="float: left;">
+                                <p>
+                                    <strong>Nombre: </strong> <span>${comida._nombre}</span>
+                                    <strong class="m-left">Existencias: </strong> <span>${comida._existencias}</span>
+                                    <strong class="m-left">Calorias: </strong> <span>${comida._calorias}</span>
+                                </p>
+                                <p>
+                                    <strong>Precio: </strong> <span>${comida._precio}</span>
+                                    <strong class="m-left">Tipo: </strong> <span>${comida._tipo}</span>
+                                </p>
+                            </div>
+                            <div style="text-align: right;">
+                                <button id="close" type="button" class="btn btn-default btn-circle">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>`;
+        return estructura; 
+    }
+
     static estructuraEditarComida(comida) {
         let estructura =  `<form id="formEditarComida" role="form" class="form-horizontal">
                                 <div id="message" style="display:none;"></div>
@@ -467,6 +487,27 @@ class GestorPageHtml {
                                     </div>
                                 </div>                              
                             </form>`;
+        return estructura; 
+    }
+
+    static estructuraVerBebida_row(bebida) {
+        let estructura =  `<div style="float: left;">
+                                <p>
+                                    <strong>Nombre: </strong> <span>${bebida._nombre}</span>
+                                    <strong class="m-left">Existencias: </strong> <span>${bebida._existencias}</span>
+                                    <strong class="m-left">Calorias: </strong> <span>${bebida._calorias}</span>
+                                </p>
+                                <p>
+                                    <strong>Precio: </strong> <span>${bebida._precio}</span>
+                                    <strong class="m-left">Grados: </strong> <span>${bebida._grados}</span>
+                                    <strong class="m-left">Es Alcolica: </strong> <span>${bebida._esAlcoholica}</span>
+                                </p>
+                            </div>
+                            <div style="text-align: right;">
+                                <button id="close" type="button" class="btn btn-default btn-circle">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>`;
         return estructura; 
     }
 
@@ -659,6 +700,14 @@ class GestorPageHtml {
             divMessage.removeChild(mensajeFlotante);
             divMessage.setAttribute("style","display: none");
         },4000);
+    }
+
+    static estructuraLogOut() {
+        let estructura =  `<center>
+                                 <img class="img-circle" src="http://www.legobatman.com/assets/media/global/header/batwink-loop.gif" >
+                            </center>`;
+
+        return estructura;                    
     }
 }
 

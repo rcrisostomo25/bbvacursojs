@@ -364,3 +364,7 @@ body {
 .site-body .input-group {
     width: 50% !important;
 }
+
+.m-left {
+    margin-left: 100px;
+}

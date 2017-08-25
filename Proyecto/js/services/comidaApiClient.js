@@ -80,7 +80,7 @@ class ComidaApiClient {
 
 		let promise = this._apiClient.get(completeUrl, null);
 		let anotherPromise = promise.then((data) => {
-			let comida = new User(data._id, data.nombre, data.exitencias, 
+			let comida = new Comida(data._id, data.nombre, data.existencias, 
 					data.calorias, data.precio, data.tipo);
 			return comida;
 		});

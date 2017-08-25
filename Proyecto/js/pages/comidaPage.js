@@ -40,7 +40,7 @@ class ComidaPage extends InnerPage {
         if(data.length > 0 ) {
             for (let i = 0; i < data.length; i++) {
                 let comida = data[i];
-                let row = this.getRowForComida(comida);
+                let row = this.getRowForComida(comida, i+1);
                 tbody.appendChild(row);
             }
         } else {
@@ -48,7 +48,7 @@ class ComidaPage extends InnerPage {
         }
     }
 
-    getRowForComida(comida) {
+    getRowForComida(comida, i) {
         let tr = document.createElement("tr");
 
         let td1 = document.createElement("td");
@@ -68,7 +68,7 @@ class ComidaPage extends InnerPage {
         let btnVer = document.createElement("button");
         btnVer.className = "btn btn-primary btn-circle";
         btnVer.innerHTML = `<i class="fa fa-search"></i>`;
-        btnVer.addEventListener("click", () => this.generarEventoVerComida(comida));
+        btnVer.addEventListener("click", () => this.generarEventoVerComida(comida, i));
         td4.appendChild(btnVer);
 
         let btnEditar = document.createElement("button");
@@ -88,10 +88,15 @@ class ComidaPage extends InnerPage {
         return tr;
     }
 
-    generarEventoVerComida(comida) {
+    generarEventoVerComida(comida, i) {
+        
     	this._comidaApiClient.obtenerComida(comida._id)
             .then((data) => {
-    			GestorPageHtml.openModal(GestorPageHtml.estructuraVerComida(comida), "Ver datos Comida", "primary");
+    			//GestorPageHtml.openModal(GestorPageHtml.estructuraVerComida(comida), "Ver datos Comida", "primary");
+                let table = new Table("#tableResultados");
+                table._cuerpoRow = GestorPageHtml.estructuraVerComida_row(data);
+                table.agregarRowDetalle(i);
+
             }).catch((e) => {            
                 GestorPageHtml.mensajeError("No se puede visualizar el detalle de la comida. Ocurrió un error " +
                         "inesperado, inténtelo mas tarde!");

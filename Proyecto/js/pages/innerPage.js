@@ -40,8 +40,14 @@ class InnerPage extends Page {
 		
         let logout = this._container.querySelector("#logout");
         logout.addEventListener("click", () => {
-        	localStorage.removeItem("userSession");
-        	this._navigation.invocarNavegacion("#login");
+        	GestorPageHtml.openModal(GestorPageHtml.estructuraLogOut(), "Cerrar Sesión", "danger");
+
+        	let btnSalir = document.body.querySelector("#btnSuccessModal");
+			btnSalir.addEventListener("click", () => {
+				localStorage.removeItem("userSession");
+        		this._navigation.invocarNavegacion("#login");	
+			});
+
         });
 	}
 
